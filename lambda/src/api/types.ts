@@ -102,6 +102,8 @@ export interface MoonGarden {
   rising: boolean;
   rhythm?: { phase: string; path: string; text: string };
   tips: { id: string; text: string }[];
+  /** Only on a day without tips: the next day with tips, at most 21 days ahead. */
+  next?: { date: string; weekday: string; days_until: number; rhythm: string; tips: { id: string; text: string }[] } | null;
   note?: string;
   speech?: string;
 }

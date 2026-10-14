@@ -124,8 +124,20 @@
           "text": "Der Mond nimmt zu und sinkt"
         },
         "tips": [],
+        "next": {
+          "date": "2026-10-26",
+          "weekday": "Montag",
+          "days_until": 12,
+          "rhythm": "Der Mond nimmt ab und steigt",
+          "tips": [
+            {
+              "id": "harvest-store",
+              "text": "Obst und Fruchtgemüse für den Vorrat ernten, es soll sich so länger halten"
+            }
+          ]
+        },
         "note": "Alte Gartenweisheit, keine Wissenschaft: Boden und Wetter gehen vor.",
-        "speech": "Der Mond nimmt zu und sinkt."
+        "speech": "Der Mond nimmt zu und sinkt. Heute ist kein besonderer Gartentag nach dem Mond. Der nächste ist am Montag, 26. Oktober: nach alter Gartenregel gut für die Vorratsernte."
       }
     },
     "image": {
