@@ -73,9 +73,8 @@ export function text(
     ...(opts.upper ? { letterSpacing: '1dp' } : {}),
     ...(opts.maxLines ? { maxLines: opts.maxLines } : {}),
     ...(opts.align ? { textAlign: opts.align } : {}),
-    // Basis 0: the text takes the free width of its row instead of measuring itself as one long line
-    // (which pushed the garden tip off the screen on the Echo Show 5).
-    ...(opts.grow ? { grow: 1, shrink: 1, width: '0dp' } : {}),
+    // No basis 0 here: in a row that is not stretched, such a text collapses to nothing.
+    ...(opts.grow ? { grow: 1, shrink: 1 } : {}),
   };
 }
 
@@ -91,29 +90,62 @@ export function column(items: (Component | null | undefined | false)[], gap: str
   return { type: 'Container', direction: 'column', items: spaced(items, gap), ...extra };
 }
 
-/** A box: white card with border, or a tinted one. */
-export function box(item: Component, s: Sizes, opts: { fill?: string; border?: string; pad?: number; extra?: Component } = {}): Component {
+/**
+ * A box: white card with border, or a tinted one; tappable with `tap`.
+ *
+ * Built on a Container, not a Frame: Frame and TouchWrapper never stretch their single child, so a
+ * row inside stayed as wide as its text (the garden tip ran off the screen, a „›“ sat right after
+ * the text), and the schema allows neither `alignSelf` nor a percentage width to fix that. In a
+ * Container the content is an ordinary child and gets the full width; the Frame (background,
+ * border) lies behind it and the TouchWrapper over it, both stretched by absolute position.
+ */
+export function box(
+  item: Component,
+  s: Sizes,
+  opts: { fill?: string; border?: string; pad?: number; extra?: Component; tap?: { args: string[]; label: string } } = {},
+): Component {
   const pad = dim(s, opts.pad ?? s.cardPad);
+  const fill = { position: 'absolute', top: '0dp', bottom: '0dp', left: '0dp', right: '0dp' };
   return {
-    type: 'Frame',
-    backgroundColor: opts.fill ?? C.card,
-    borderColor: opts.border ?? (opts.fill && opts.fill !== C.card ? opts.fill : C.border),
-    borderWidth: '2dp',
-    borderRadius: dim(s, s.radius),
-    item: { ...item, paddingLeft: pad, paddingRight: pad, paddingTop: pad, paddingBottom: pad },
+    type: 'Container',
+    paddingLeft: pad,
+    paddingRight: pad,
+    paddingTop: pad,
+    paddingBottom: pad,
+    items: [
+      {
+        type: 'Frame',
+        ...fill,
+        backgroundColor: opts.fill ?? C.card,
+        borderColor: opts.border ?? (opts.fill && opts.fill !== C.card ? opts.fill : C.border),
+        borderWidth: '2dp',
+        borderRadius: dim(s, s.radius),
+      },
+      item,
+      opts.tap ? { type: 'TouchWrapper', ...fill, accessibilityLabel: opts.tap.label, onPress: [send(opts.tap.args)] } : null,
+    ].filter(Boolean),
     ...opts.extra,
   };
 }
 
-/** Tappable: sends a UserEvent the skill answers like the matching intent. */
+const send = (args: string[]) => ({ type: 'SendEvent', arguments: args });
+
+/** Tappable: sends a UserEvent the skill answers like the matching intent. For boxes use `box(…, { tap })`. */
 export function tap(item: Component, args: string[], label: string, extra: Component = {}): Component {
   return {
     type: 'TouchWrapper',
     accessibilityLabel: label,
-    onPress: [{ type: 'SendEvent', arguments: args }],
+    onPress: [send(args)],
     item,
     ...extra,
   };
+}
+
+/** „‹ Jahresrad“ at the top of every detail screen: back to the wheel (same as saying „zurück“). */
+export function backChip(s: Sizes): Component {
+  return tap(text('‹ Jahresrad', dim(s, s.small), { bold: true, color: C.green, maxLines: 1 }), ['nav', 'home'], 'Zurück zum Jahresrad', {
+    alignSelf: 'start',
+  });
 }
 
 /** A complete APL document around one root component. */

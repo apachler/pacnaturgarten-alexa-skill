@@ -230,6 +230,23 @@
           ]
         },
         {
+          "name": "HomeIntent",
+          "slots": [],
+          "samples": [
+            "zurück",
+            "zurück zum jahresrad",
+            "zum jahresrad",
+            "zur übersicht",
+            "zurück zur übersicht",
+            "übersicht",
+            "zur startseite",
+            "startseite",
+            "hauptseite",
+            "zeig mir das jahresrad",
+            "zeig das jahresrad"
+          ]
+        },
+        {
           "name": "AMAZON.HelpIntent",
           "samples": [
             "was kann ich fragen",

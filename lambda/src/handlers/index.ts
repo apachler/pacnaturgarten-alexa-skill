@@ -7,7 +7,7 @@ import { gardenTodayAnswer, gardenWeekAnswer, taskAnswer } from '../answers/gard
 import { moonAnswer, moonGardenAnswer } from '../answers/moon';
 import { daylightAnswer, seasonAnswer } from '../answers/nature';
 import { dayAnswer, todayAnswer } from '../answers/today';
-import { apiFor, getPending, viewportKind } from '../context';
+import { apiFor, getPending, supportsApl, viewportKind } from '../context';
 import { log } from '../log';
 import { respond, type Answer } from '../respond';
 import { T } from '../speech/texts';
@@ -63,10 +63,14 @@ const day = forIntent(['DayIntent'], (hi) => dayAnswer(hi, getSlotValue(hi.reque
 const help = forIntent(['AMAZON.HelpIntent'], helpAnswer);
 const stop = forIntent(['AMAZON.StopIntent', 'AMAZON.CancelIntent'], () => goodbye);
 
-const navigateHome = forIntent(['AMAZON.NavigateHomeIntent'], async (hi) => {
+/** Back to the wheel: „zurück“, „Startseite“, or the „‹ Jahresrad“ chip. Without a screen: the briefing. */
+async function homeAnswer(hi: HandlerInput): Promise<Answer> {
+  if (!supportsApl(hi)) return todayAnswer(hi, { launch: false });
   const { data } = await (await apiFor(hi)).today();
   return { speech: 'Hier ist das Jahresrad von heute.', screen: mainScreen(data, viewportKind(hi)) };
-});
+}
+
+const navigateHome = forIntent(['AMAZON.NavigateHomeIntent', 'HomeIntent'], homeAnswer);
 
 /** „Das habe ich nicht verstanden“; after two in a row, the help. */
 const fallback: RequestHandler = {
@@ -112,6 +116,7 @@ const no: RequestHandler = {
 // ---------- touch (APL UserEvent) ----------
 
 const TOUCH: Record<string, (hi: HandlerInput, param?: string, extra?: string) => Promise<Answer> | Answer> = {
+  home: homeAnswer,
   today: (hi) => todayAnswer(hi, { launch: false }),
   season: seasonAnswer,
   moon: (hi) => moonAnswer(hi),

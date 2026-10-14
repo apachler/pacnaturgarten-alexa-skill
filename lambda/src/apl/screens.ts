@@ -9,6 +9,7 @@ import { clean, daysBetween, longDate, screenDate, screenDuration, shortDate } f
 import {
   C,
   SIZES,
+  backChip,
   box,
   column,
   dim,
@@ -62,11 +63,8 @@ function card(c: CardSpec, s: Sizes): Component {
   // The frame is the flex child, so cards in a row stretch to the same height; the touch target
   // sits inside it (APL allows no percentage height under an auto-sized TouchWrapper).
   const flex = { grow: 1, shrink: 1, width: '0dp' };
-  return box(
-    tap(inner, c.args, `${c.label}: ${c.value}`),
-    s,
-    c.festive ? { fill: C.festival, border: C.festivalBorder, extra: flex } : { extra: flex },
-  );
+  const tapped = { args: c.args, label: `${c.label}: ${c.value}` };
+  return box(inner, s, c.festive ? { fill: C.festival, border: C.festivalBorder, extra: flex, tap: tapped } : { extra: flex, tap: tapped });
 }
 
 function mainCards(day: Day, s: Sizes): CardSpec[] {
@@ -122,22 +120,18 @@ function gardenStrip(day: Day, s: Sizes, compact: boolean): Component | null {
   const task = day.garden.tasks[0];
   if (!task) return null;
   const pad = compact ? s.cardPad * 0.7 : s.cardPad * 0.8;
-  return tap(
-    box(
-      row(
-        [
-          text('Gartentipp', dim(s, s.label), { bold: true, color: C.green, upper: true, maxLines: 1 }),
-          text(task.title, dim(s, compact ? s.small : s.body * 0.85), { grow: true, maxLines: compact ? 2 : 1 }),
-          compact ? null : text('Alle Aufgaben ›', dim(s, s.small), { bold: true, color: C.green, maxLines: 1 }),
-        ],
-        dim(s, s.gap),
-        { alignItems: 'center' },
-      ),
-      s,
-      { fill: C.greenTint, pad },
+  return box(
+    row(
+      [
+        text('Gartentipp', dim(s, s.label), { bold: true, color: C.green, upper: true, maxLines: 1 }),
+        text(task.title, dim(s, compact ? s.small : s.body * 0.85), { grow: true, maxLines: compact ? 2 : 1 }),
+        compact ? null : text('Alle Aufgaben ›', dim(s, s.small), { bold: true, color: C.green, maxLines: 1 }),
+      ],
+      dim(s, s.gap),
+      { alignItems: 'center' },
     ),
-    ['nav', 'gardenWeek'],
-    `Gartentipp: ${task.title}`,
+    s,
+    { fill: C.greenTint, pad, tap: { args: ['nav', 'gardenWeek'], label: `Gartentipp: ${task.title}` } },
   );
 }
 
@@ -267,7 +261,7 @@ export function festivalScreen(f: Festival, todayIso: string, kind: ViewportKind
   }
   const body =
     kind === 'landscape' ? row(sections, gap, { alignItems: 'stretch' }) : column(sections, gap);
-  const root = screenRoot([header, { type: 'ScrollView', grow: 1, shrink: 1, item: body }], s, dim(s, s.gap * 1.4));
+  const root = screenRoot([backChip(s), header, { type: 'ScrollView', grow: 1, shrink: 1, item: body }], s, dim(s, s.gap * 1.4));
   return { token: 'festivalScreen', document: document(root) };
 }
 
@@ -327,6 +321,7 @@ export function moonScreen(moon: Moon, kind: ViewportKind, garden?: MoonGarden):
       : null;
   const info = column(
     [
+      backChip(s),
       column(
         [
           text('Mond heute', dim(s, s.label), { bold: true, color: C.muted, upper: true }),
@@ -403,28 +398,28 @@ export function gardenScreen(
     for (const task of group.tasks) {
       const active = task.id === opts.highlight;
       items.push(
-        tap(
-          box(
-            row(
-              [
-                text('•', dim(s, s.body), { color: C.green }),
-                text(task.title, dim(s, s.body), { grow: true, maxLines: 2 }),
-                text('›', dim(s, s.body), { color: C.muted }),
-              ],
-              dim(s, s.gap),
-              { alignItems: 'center' },
-            ),
-            s,
-            { pad: s.cardPad * 0.6, ...(active ? { fill: C.greenTint, border: C.green } : {}) },
+        box(
+          row(
+            [
+              text('•', dim(s, s.body), { color: C.green }),
+              text(task.title, dim(s, s.body), { grow: true, maxLines: 2 }),
+              text('›', dim(s, s.body), { color: C.muted }),
+            ],
+            dim(s, s.gap),
+            { alignItems: 'center' },
           ),
-          ['nav', 'task', task.id, opts.view],
-          task.title,
+          s,
+          {
+            pad: s.cardPad * 0.6,
+            ...(active ? { fill: C.greenTint, border: C.green } : {}),
+            tap: { args: ['nav', 'task', task.id, opts.view], label: task.title },
+          },
         ),
       );
     }
   }
   const list = { type: 'Sequence', grow: 1, shrink: 1, items: items.map((c, i) => (i === 0 ? c : { ...c, spacing: dim(s, s.gap * 0.6) })) };
-  return { token: 'gardenScreen', document: document(screenRoot([header, list], s, gap)) };
+  return { token: 'gardenScreen', document: document(screenRoot([backChip(s), header, list], s, gap)) };
 }
 
 // ---------- help ----------
@@ -462,6 +457,7 @@ export function helpScreen(kind: ViewportKind): Screen {
   for (let i = 0; i < HELP_CHIPS.length; i += perRow) rows.push(row(HELP_CHIPS.slice(i, i + perRow).map(chip), gap));
   const root = screenRoot(
     [
+      backChip(s),
       column(
         [
           text('Frag das Jahresrad', dim(s, s.title * 1.2), { serif: true, bold: true }),
