@@ -30,6 +30,31 @@ for (const intent of languageModel.intents) {
   for (const name of declared) if (!used.has(name)) problems.push(`${intent.name}: slot ${name} never used in a sample`);
 }
 
+// Slot samples that swallow another intent's wording: „erzähl mir vom {date}“ (DayIntent) caught
+// „erzähl mir vom mond“, and Alexa asked „Welchen Tag meinst du?“. A built-in slot (AMAZON.*) can
+// take any words, so any match counts; a custom slot only when the words are one of its values.
+const values = new Map(
+  languageModel.types.map((t) => [t.name, new Set(t.values.flatMap((v) => [v.name.value, ...(v.name.synonyms ?? [])]).map((v) => v.toLowerCase()))]),
+);
+const literals = languageModel.intents.flatMap((i) => i.samples.filter((s) => !s.includes('{')).map((s) => ({ intent: i.name, sample: s.toLowerCase().trim() })));
+for (const intent of languageModel.intents) {
+  const slotTypes = new Map((intent.slots ?? []).map((s) => [s.name, s.type]));
+  for (const sample of intent.samples.filter((s) => /\{[^}]+\}/.test(s))) {
+    const slots = [...sample.matchAll(/\{([^}]+)\}/g)].map(([, name]) => name);
+    const pattern = new RegExp(`^${sample.toLowerCase().trim().split(/\{[^}]+\}/).map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('(.+)')}$`);
+    for (const other of literals) {
+      if (other.intent === intent.name) continue;
+      const match = other.sample.match(pattern);
+      if (!match) continue;
+      const clash = slots.some((name, i) => {
+        const type = slotTypes.get(name) ?? '';
+        return type.startsWith('AMAZON.') || values.get(type)?.has(match[i + 1].trim());
+      });
+      if (clash) problems.push(`"${sample}" in ${intent.name} also matches "${other.sample}" in ${other.intent}`);
+    }
+  }
+}
+
 if (problems.length) {
   console.error(problems.join('\n'));
   process.exit(1);
