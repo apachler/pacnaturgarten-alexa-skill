@@ -151,10 +151,11 @@ The full step-by-step list with checkboxes: [docs/NEXT-STEPS.md](docs/NEXT-STEPS
 - [x] Wheel-only images and gardening with the moon are live on naturgarten.bio.
 - [x] Icons (108 and 512 px, from the wheel) in `skill-package/assets/images`.
 - [x] Terms of use: page `/nutzungsbedingungen` is live (apachler/pacnaturgarten#89, released).
-- [ ] Check the „Amazon Alexa“ section on `/privacy` in a browser (the page renders client-side).
-- [ ] A test Gefährten account for Amazon's reviewers (separate account, approved; its password
+- [x] The „Amazon Alexa“ section on `/privacy` is live.
+- [x] A test Gefährten account for Amazon's reviewers (separate account, approved; its password
       only in the certification form).
-- [ ] Tests on at least one Echo Show and one screenless device.
+- [ ] Screens in the console simulator (*Device Display*, all Echo Show sizes) and voice-only in the
+      Alexa app; no Echo devices at hand, Amazon tests on devices during certification.
 
 ## License
 

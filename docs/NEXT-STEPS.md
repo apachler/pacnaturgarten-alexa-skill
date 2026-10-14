@@ -9,7 +9,7 @@ are in the [README](../README.md#deploying-alexa-hosted).
       merged into `main`.
 - [x] **Terms PR** [apachler/pacnaturgarten#89](https://github.com/apachler/pacnaturgarten/pull/89)
       merged and released; `https://naturgarten.bio/nutzungsbedingungen` is live.
-- [ ] Look at the section „Amazon Alexa“ on `https://naturgarten.bio/privacy` in a browser.
+- [x] Section „Amazon Alexa“ on `https://naturgarten.bio/privacy` is live (checked in the served page code).
 
 ## 2. Set up on Amazon (once) — done
 
@@ -32,16 +32,20 @@ npm run deploy:hosted -- ../jahresrad-hosted
 ```
 
 - [x] Version 1 on the development stage; simulator run of all README examples.
-- [ ] Deploy the fixes from the simulator run (PR „fix/v1-feedback“: „erzähl mir vom Mond“,
-      friendly „ja“/„nein“, deploy script) after merging.
-- [ ] API: moon gardening names the next good day when today has no tip (PR in
-      `apachler/pacnaturgarten`, released to `main`). No skill change needed.
+- [x] Fixes from the simulator run deployed (#2–#4): „erzähl mir vom Mond“, friendly „ja“/„nein“,
+      deploy script, unambiguous moon turn day.
+- [x] API: moon gardening names the next good day when today has no tip
+      (apachler/pacnaturgarten#97, released).
 
-## 5. Test on devices (after the fixes are deployed)
+## 5. Test (no Echo at hand: console simulator for screens, Android Alexa app for voice)
 
-- [ ] Console → *Test* → „Development“: check the screens for Echo Show 5, 8 and 15.
-- [ ] On a real Echo Show: daily briefing, tap the cards (moon, festival, garden tip), help chips.
-- [ ] On a screenless Echo: the same questions by voice; every question must work without a screen.
+- [x] Simulator (CLI): all README examples, the three example phrases, open/help/stop/cancel/no,
+      unrelated requests twice, „welches Fest“ follow-up, one-shots. Amazon validation: passed.
+- [ ] Console → *Test* → „Development“ → tick **Device Display**: check the screens for Echo Show 5,
+      8/10, 15/21 and Show 15 upright; tap the cards (moon, festival, garden tip) and help chips.
+- [ ] Android Alexa app (speaks only, like a screenless Echo): the same questions by voice; every
+      question must work without a screen.
+- [ ] Real Echo devices: none available; Amazon tests on devices during certification.
 - [ ] „Erzähl mir vom Mond“, „erzähl mir von der Sonne“, „ja“ after „Gartenarbeiten der Woche“.
 - [ ] Error cases: unlink the account in the profile („Verbundene Apps“) → the skill must answer
       with the linking hint and a card in the Alexa app.
@@ -51,9 +55,11 @@ npm run deploy:hosted -- ../jahresrad-hosted
 
 ## 6. Before certification
 
-- [ ] Create a **test Gefährten account** for Amazon's reviewers (e.g.
-      `alexa-review@naturgarten.bio`), approve it as Gefährte, set a garden place in its profile.
-      Its password goes only into the certification form, never into a repo.
+- [x] **Test Gefährten account** for Amazon's reviewers created and approved. Keep it for every
+      later re-certification; its password goes only into the certification form, never into a repo.
+- [ ] Check that its profile has a garden place (otherwise reviewers get the location hint).
+- [x] Store description says how to become a Gefährte (`naturgarten.bio/netzwerk`, then manual
+      approval); testing instructions give reviewers a step-by-step path.
 - [ ] Optional: a simplified icon. The 108 px icon from the full wheel is recognisable but
       fine labels blur; replace `skill-package/assets/images/de-DE_smallIconUri.png` (108×108) and
       `de-DE_largeIconUri.png` (512×512) if you make one.
