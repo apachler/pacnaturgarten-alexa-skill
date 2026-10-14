@@ -47,7 +47,9 @@ export interface Sizes {
 
 export const SIZES: Record<ViewportKind, Sizes> = {
   landscape: { unit: 'vh', pad: 4.5, gap: 2.2, title: 5.6, subtitle: 3.4, body: 2.9, label: 1.8, value: 4.2, small: 2.4, cardPad: 2.4, radius: 2, wheel: 62 },
-  small: { unit: 'vh', pad: 4, gap: 2, title: 6.2, subtitle: 4, body: 3.6, label: 2.5, value: 5.2, small: 3.1, cardPad: 2.8, radius: 2.8, wheel: 90 },
+  // Echo Show 5: wheel 78 % (not 90) so the 2×2 cards get ~60 px more width; values, labels and
+  // sub texts a size smaller — at 90 % and 5.2 „Vollherbst“ and „Samhain“ broke mid-word.
+  small: { unit: 'vh', pad: 4, gap: 2, title: 6.2, subtitle: 4, body: 3.6, label: 2.1, value: 3.8, small: 2.6, cardPad: 2.8, radius: 2.8, wheel: 78 },
   portrait: { unit: 'vw', pad: 6, gap: 2.4, title: 5.6, subtitle: 3.5, body: 3, label: 1.8, value: 4.4, small: 2.3, cardPad: 3, radius: 2, wheel: 84 },
 };
 
