@@ -126,6 +126,11 @@ changed and asks before it commits and pushes `master` — Amazon builds the dev
 that push. It then imports `skill-package` through SMAPI (the hosted repo ignores `skill.json`, so
 the push alone updates neither manifest nor model) and waits for import and Lambda deployment.
 
+The reviewers' credentials for Account Linking go into the testing instructions in the console
+(*Distribution → Privacy & Compliance*), never into the repo. `deploy:hosted` keeps that console
+text as long as it only adds to the repo's `testingInstructions`; if the repo text changed, it
+warns that the credentials must be added again before submitting.
+
 `ask deploy` does not work here: for hosted skills ASK CLI 2.30 only prints „use git push“.
 `npm run stage:hosted -- <folder>` still exists to stage without deploying.
 
