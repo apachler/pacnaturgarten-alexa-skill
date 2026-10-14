@@ -3,64 +3,54 @@
 Status on 14.10.2026. Work from top to bottom; tick boxes as you go. Commands and background
 are in the [README](../README.md#deploying-alexa-hosted).
 
-## 1. Merge what is ready
+## 1. Merge what is ready — done
 
-- [ ] **Skill PR** [apachler/pacnaturgarten-alexa-skill#1](https://github.com/apachler/pacnaturgarten-alexa-skill/pull/1)
-      → review and merge into `main` (CI green).
-- [ ] **Terms PR** [apachler/pacnaturgarten#89](https://github.com/apachler/pacnaturgarten/pull/89)
-      → read the draft (no legal review yet; check the liability and governing-law sections), open
-      the Amazon privacy link once by hand, then squash-merge into `preview`.
-- [ ] Look at `https://preview--pacnaturgarten.netlify.app/nutzungsbedingungen` and the new
-      section „Amazon Alexa“ on `/privacy` of the preview.
+- [x] **Skill PR** [apachler/pacnaturgarten-alexa-skill#1](https://github.com/apachler/pacnaturgarten-alexa-skill/pull/1)
+      merged into `main`.
+- [x] **Terms PR** [apachler/pacnaturgarten#89](https://github.com/apachler/pacnaturgarten/pull/89)
+      merged and released; `https://naturgarten.bio/nutzungsbedingungen` is live.
+- [ ] Look at the section „Amazon Alexa“ on `https://naturgarten.bio/privacy` in a browser.
 
-## 2. Set up on Amazon (once)
+## 2. Set up on Amazon (once) — done
 
-- [ ] Install the ASK CLI: `npm install -g ask-cli`, then `ask configure` (sign in with the
-      developer account; answer **no** to the AWS profile question).
-- [ ] Create the skill in the [developer console](https://developer.amazon.com/alexa/console/ask):
-      name „Jahresrad“, German (DE), Custom, **Alexa-hosted (Node.js)**, region **EU (Ireland)**.
-      Note the skill id: `amzn1.ask.skill.…` → ______________________
-- [ ] Fetch its code in an empty folder **outside** this repo:
-      `ask init --hosted-skill-id <skill id>`.
+- [x] ASK CLI installed and configured (Node 22; no AWS profile).
+- [x] Skill created: „Jahresrad“, German (DE), Custom, Alexa-hosted (Node.js), EU (Ireland).
+      Skill id: `amzn1.ask.skill.9c0c794a-a5a0-4b9e-b017-8f965bce13b6`
+- [x] Hosted code checked out next to this repo: `../jahresrad-hosted` (`master` = development).
 
-## 3. Account Linking
+## 3. Account Linking — done
 
-- [ ] Copy `skill-package/accountLinking.template.json` outside any repo, fill in the values of
-      `OAUTH_ALEXA_CLIENT_ID` and `OAUTH_ALEXA_CLIENT_SECRET` from Netlify.
-- [ ] `ask smapi update-account-linking-info -s <skill id> --account-linking-request file:<copy>`
-      (or enter the same values in the console under *Build → Account Linking*). Delete the copy.
-- [ ] Copy all „Alexa Redirect URLs“ from *Build → Account Linking* into
-      `OAUTH_ALEXA_REDIRECT_URIS` on Netlify (comma-separated). Production picks them up with the
-      next deploy.
+- [x] Client `alexa-jahresrad` and secret set on Netlify and in the Alexa console.
+- [x] All three Alexa Redirect URLs in `OAUTH_ALEXA_REDIRECT_URIS`; production redeployed.
+- [x] Account linked in the Alexa app (Android).
 
-## 4. First deploy
+## 4. Deploy — first deploy done; for every release
 
 ```bash
-cd pacnaturgarten-alexa-skill && git pull && npm ci
-npm run verify
-npm run stage:hosted -- <hosted skill folder>
-cd <hosted skill folder> && git add -A && git commit -m "Jahresrad 1.0" && ask deploy
+git pull && npm ci && npm run verify
+npm run deploy:hosted -- ../jahresrad-hosted
 ```
 
-## 5. Test
+- [x] Version 1 on the development stage; simulator run of all README examples.
+- [ ] Deploy the fixes from the simulator run (PR „fix/v1-feedback“: „erzähl mir vom Mond“,
+      friendly „ja“/„nein“, deploy script) after merging.
+- [ ] API: moon gardening names the next good day when today has no tip (PR in
+      `apachler/pacnaturgarten`, released to `main`). No skill change needed.
 
-- [ ] Alexa app → *Skills & Games → Your Skills → Dev* → Jahresrad → enable → sign in on
-      naturgarten.bio → *Erlauben*.
-- [ ] Console → *Test* → „Development“: „öffne jahresrad“, then every example from the README
-      table. Check the screens for Echo Show 5, 8 and 15 in the simulator.
+## 5. Test on devices (after the fixes are deployed)
+
+- [ ] Console → *Test* → „Development“: check the screens for Echo Show 5, 8 and 15.
 - [ ] On a real Echo Show: daily briefing, tap the cards (moon, festival, garden tip), help chips.
 - [ ] On a screenless Echo: the same questions by voice; every question must work without a screen.
+- [ ] „Erzähl mir vom Mond“, „erzähl mir von der Sonne“, „ja“ after „Gartenarbeiten der Woche“.
 - [ ] Error cases: unlink the account in the profile („Verbundene Apps“) → the skill must answer
       with the linking hint and a card in the Alexa app.
 - [ ] Routine: Alexa app → Routines → daily 07:00 → action *Custom*: „frag Jahresrad, was es heute
       gibt“.
 - [ ] Problems? Console → *Code* → *CloudWatch Logs* (JSON lines, no ids or tokens).
-      Report what you saw in a new session.
 
 ## 6. Before certification
 
-- [ ] **Release** `pacnaturgarten` (`preview` → `main`) so `/nutzungsbedingungen` and the new
-      privacy section are live; bundle it with the Netlify redeploy for the redirect URLs.
 - [ ] Create a **test Gefährten account** for Amazon's reviewers (e.g.
       `alexa-review@naturgarten.bio`), approve it as Gefährte, set a garden place in its profile.
       Its password goes only into the certification form, never into a repo.
