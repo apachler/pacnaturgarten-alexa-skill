@@ -134,6 +134,12 @@ not resolve to any intent“ for a few minutes without calling the skill; try ag
 
 ### Testing
 
+- **Screens on every Echo Show size:** in Claude Code, `/screen-check` (skill in
+  `.claude/skills/screen-check`). It drives the developer console simulator with Playwright on
+  Echo Show 5, 8, 10, 15/21 and 15 upright: launch, every card, garden list and task, help chips,
+  the way back — screenshots per step plus a lint for text outside the screen, clipped or cut
+  with „…“. Needs a browser logged into the developer console (see the skill).
+
 - Console → *Test* → enable „Development“, type or say „öffne jahresrad“. The simulator shows the
   APL screens for different Echo Show sizes. From the shell:
   `ask smapi simulate-skill -s <skill id> -g development --device-locale de-DE --input-content "öffne jahresrad"`,
