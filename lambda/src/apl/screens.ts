@@ -321,7 +321,6 @@ export function moonScreen(moon: Moon, kind: ViewportKind, garden?: MoonGarden):
       : null;
   const info = column(
     [
-      backChip(s),
       column(
         [
           text('Mond heute', dim(s, s.label), { bold: true, color: C.muted, upper: true }),
@@ -336,10 +335,11 @@ export function moonScreen(moon: Moon, kind: ViewportKind, garden?: MoonGarden):
     dim(s, s.gap * 1.3),
     { grow: 1, shrink: 1 },
   );
+  // „‹ Jahresrad“ first, above disc and details, so it sits top left as on every other screen.
   const root =
     kind === 'portrait'
-      ? screenRoot([{ ...disc, alignSelf: 'center' }, info], s, dim(s, s.gap * 2))
-      : screenRoot([disc, info], s, dim(s, s.gap * 2.5), 'row', { alignItems: 'center' });
+      ? screenRoot([backChip(s), { ...disc, alignSelf: 'center' }, info], s, dim(s, s.gap * 2))
+      : screenRoot([backChip(s), row([disc, info], dim(s, s.gap * 2.5), { alignItems: 'center', grow: 1, shrink: 1 })], s, dim(s, s.gap));
   return { token: 'moonScreen', document: document(root, graphics) };
 }
 

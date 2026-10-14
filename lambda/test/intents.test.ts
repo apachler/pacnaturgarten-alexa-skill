@@ -270,6 +270,12 @@ describe('touch and events', () => {
   it('„‹ Jahresrad“ on a detail screen goes back to the wheel', async () => {
     const moon = await t.invoke(envelope(userEvent('nav', 'moon'), { apl: true, newSession: false }));
     expect(JSON.stringify(directive(moon)?.document)).toContain('"arguments":["nav","home"]');
+    // Top left on every screen: the chip is the root's first item, before any row.
+    for (const target of [['nav', 'moon'], ['nav', 'festival'], ['nav', 'gardenWeek']]) {
+      const res = await t.invoke(envelope(userEvent(...target), { apl: true, newSession: false }));
+      const root = (directive(res)?.document as { mainTemplate: { items: { items: { onPress?: { arguments: string[] }[] }[] }[] } }).mainTemplate.items[0];
+      expect(root?.items[0]?.onPress?.[0]?.arguments).toEqual(['nav', 'home']);
+    }
     const home = await t.invoke(envelope(userEvent('nav', 'home'), { apl: true, newSession: false }));
     expect(directive(home)?.token).toBe('mainScreen');
   });
