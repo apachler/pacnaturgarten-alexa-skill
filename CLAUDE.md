@@ -18,7 +18,8 @@ Vitest · `apl-suggester` for APL schema checks · ASK CLI for deploys.
 ```bash
 npm run verify          # typecheck + interaction model check + tests + bundle — run before every push
 npm test                # watch mode
-npm run stage:hosted -- <hosted skill checkout>   # copy a build into the Alexa-hosted repo
+npm run deploy:hosted -- ../jahresrad-hosted     # stage, push master, import skill-package (asks first)
+npm run stage:hosted -- <hosted skill checkout>   # only copy a build into the Alexa-hosted repo
 ```
 
 Layout: `lambda/src/api` (client, cache, errors, types), `answers/` (one module per topic),

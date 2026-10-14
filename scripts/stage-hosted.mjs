@@ -5,7 +5,7 @@
 //
 // Copied: lambda/index.js, lambda/package.json, the interaction model, the icons and the manifest.
 // The manifest is merged so the hosted skill keeps what Amazon manages (endpoint, regions).
-// Nothing is committed or pushed; that stays a deliberate step.
+// Nothing is committed or pushed; scripts/deploy-hosted.mjs does that after asking.
 import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
@@ -53,4 +53,4 @@ if (existsSync(join(root, 'skill-package', 'assets'))) {
 }
 writeFileSync(theirsPath, JSON.stringify({ manifest: merged }, null, 2) + '\n');
 
-console.log(`Staged into ${dest}. Next, in that directory: git add -A && git commit -m "…" && ask deploy`);
+console.log(`Staged into ${dest}.`);

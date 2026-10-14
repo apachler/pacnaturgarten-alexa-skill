@@ -8,9 +8,9 @@ the moon, and fitting garden tasks. On Echo Show devices it shows the wheel with
 The skill is public, but usable only by **Gefährten**: approved members of naturgarten.bio, who
 link their account through Alexa Account Linking (OAuth 2.0).
 
-> **Status:** version 1 is implemented and tested locally (unit tests, APL schema validation).
-> Not yet deployed, not yet tested on a device, not yet submitted for certification. See
-> [Before publishing](#before-publishing).
+> **Status:** version 1 runs on the development stage of the Alexa-hosted skill, with Account
+> Linking; tested in the simulator and on a phone. Not yet tested on Echo devices, not yet
+> submitted for certification. See [Before publishing](#before-publishing).
 
 ## What it can do
 
@@ -95,31 +95,49 @@ against Amazon's APL schema (`apl-suggester`) on all three viewport sizes.
    → *Create Skill*: name „Jahresrad“, locale *German (DE)*, experience *Other* → *Custom*, model
    *Start from scratch*, hosting **Alexa-hosted (Node.js)**, region **EU (Ireland)**. Copy the skill
    id (`amzn1.ask.skill.…`) from the skill list.
-3. **Fetch its code**: in an empty folder outside this repo,
-   `ask init --hosted-skill-id <skill id>`. That folder is the hosted skill's own git repository.
+3. **Fetch its code**: next to this repo (not inside it),
+   `ask init --hosted-skill-id <skill id>`; it asks for a folder name (e.g. `jahresrad-hosted`).
+   That folder is the hosted skill's own git repository: `master` deploys the development stage,
+   `prod` the live stage (Amazon fills it on certification; never push to it).
+   Check its `.gitignore`: `ask init` has been seen to append `skill-package/skill.json` without a
+   line break, which leaves both that and `ask-resources.json` unignored.
 4. **Account Linking**: copy `skill-package/accountLinking.template.json` to a place outside any
    repo, fill in `OAUTH_ALEXA_CLIENT_ID` / `OAUTH_ALEXA_CLIENT_SECRET` (the values set on Netlify),
    then `ask smapi update-account-linking-info -s <skill id> --account-linking-request file:<copy>`.
    Delete the copy afterwards. Or enter the same values in the console (*Build → Account Linking*).
+   The client id is any name (e.g. `alexa-jahresrad`), the secret at least 24 random characters
+   (`openssl rand -base64 36`); you generate both, and the same values go to Netlify and Amazon.
 5. **Redirect URLs**: the console shows them under *Build → Account Linking* („Alexa Redirect
-   URLs“). Put all of them, comma-separated, into `OAUTH_ALEXA_REDIRECT_URIS` on Netlify; production
-   needs a redeploy to pick up the change (or wait for the next release).
+   URLs“): `https://{pitangui.amazon.com,layla.amazon.com,alexa.amazon.co.jp}/api/skill/link/<vendor id>`.
+   Put all three, comma-separated, into `OAUTH_ALEXA_REDIRECT_URIS` on Netlify (scope: Functions);
+   production needs a redeploy to pick up the change. Without all three variables there is no OAuth
+   client and linking fails.
 
 ### Every release of the skill
 
 ```bash
 npm run verify
-npm run stage:hosted -- <hosted skill folder>      # bundle, model, manifest, icons
-cd <hosted skill folder> && git add -A && git commit -m "Jahresrad <version>" && ask deploy
+npm run deploy:hosted -- <hosted skill folder>
 ```
 
-`ask deploy` updates the manifest and interaction model and pushes the code; the hosted Lambda
-deploys itself from that push.
+`deploy:hosted` (`scripts/deploy-hosted.mjs`) checks that this repo is committed and the hosted
+checkout is on `master` and in sync, stages the build (bundle, model, manifest, icons), shows what
+changed and asks before it commits and pushes `master` — Amazon builds the development Lambda from
+that push. It then imports `skill-package` through SMAPI (the hosted repo ignores `skill.json`, so
+the push alone updates neither manifest nor model) and waits for import and Lambda deployment.
+
+`ask deploy` does not work here: for hosted skills ASK CLI 2.30 only prints „use git push“.
+`npm run stage:hosted -- <folder>` still exists to stage without deploying.
+
+Right after a deploy or a change to Account Linking, the simulator can answer „This utterance did
+not resolve to any intent“ for a few minutes without calling the skill; try again before debugging.
 
 ### Testing
 
 - Console → *Test* → enable „Development“, type or say „öffne jahresrad“. The simulator shows the
-  APL screens for different Echo Show sizes.
+  APL screens for different Echo Show sizes. From the shell:
+  `ask smapi simulate-skill -s <skill id> -g development --device-locale de-DE --input-content "öffne jahresrad"`,
+  then `ask smapi get-skill-simulation -s <skill id> -g development -i <id>`.
 - Link the account first: Alexa app → *More → Skills & Games → Your Skills → Dev* → Jahresrad →
   *Enable* → sign in on naturgarten.bio → *Erlauben*.
 - Devices signed in with the same Amazon account get the development version: test on an Echo Show
@@ -132,9 +150,8 @@ The full step-by-step list with checkboxes: [docs/NEXT-STEPS.md](docs/NEXT-STEPS
 
 - [x] Wheel-only images and gardening with the moon are live on naturgarten.bio.
 - [x] Icons (108 and 512 px, from the wheel) in `skill-package/assets/images`.
-- [ ] Terms of use: page `/nutzungsbedingungen` and the Alexa section of the privacy policy are
-      in PR apachler/pacnaturgarten#89; they must be released before certification (the manifest
-      already points to the URL).
+- [x] Terms of use: page `/nutzungsbedingungen` is live (apachler/pacnaturgarten#89, released).
+- [ ] Check the „Amazon Alexa“ section on `/privacy` in a browser (the page renders client-side).
 - [ ] A test Gefährten account for Amazon's reviewers (separate account, approved; its password
       only in the certification form).
 - [ ] Tests on at least one Echo Show and one screenless device.

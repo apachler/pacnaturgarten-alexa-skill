@@ -13,7 +13,8 @@
     "test:run": "vitest run",
     "validate:model": "node scripts/validate-model.mjs",
     "verify": "npm run check && npm run validate:model && npm run test:run && npm run build",
-    "stage:hosted": "npm run build && node scripts/stage-hosted.mjs"
+    "stage:hosted": "npm run build && node scripts/stage-hosted.mjs",
+    "deploy:hosted": "node scripts/deploy-hosted.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.1151.0",
