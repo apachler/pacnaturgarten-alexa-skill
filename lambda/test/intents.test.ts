@@ -267,6 +267,21 @@ describe('touch and events', () => {
     expect(JSON.stringify(directive(res)?.document)).toContain('"arguments":["nav","task","fullAutumn-1","today"]');
   });
 
+  it('„‹ Jahresrad“ on a detail screen goes back to the wheel', async () => {
+    const moon = await t.invoke(envelope(userEvent('nav', 'moon'), { apl: true, newSession: false }));
+    expect(JSON.stringify(directive(moon)?.document)).toContain('"arguments":["nav","home"]');
+    const home = await t.invoke(envelope(userEvent('nav', 'home'), { apl: true, newSession: false }));
+    expect(directive(home)?.token).toBe('mainScreen');
+  });
+
+  it('„zurück“ shows the wheel; without a screen it gives the briefing', async () => {
+    const res = await t.invoke(envelope(intent('HomeIntent'), { apl: true, newSession: false }));
+    expect(directive(res)?.token).toBe('mainScreen');
+    expect(said(res)).toContain('Hier ist das Jahresrad von heute.');
+    const voice = await t.invoke(envelope(intent('HomeIntent'), { newSession: false }));
+    expect(said(voice)).toContain('Heute ist Mittwoch, 14. Oktober.');
+  });
+
   it('help chips work like the spoken question', async () => {
     const res = await t.invoke(envelope(userEvent('nav', 'say', 'imbolc'), { apl: true, newSession: false }));
     expect(said(res)).toContain('Imbolc war dieses Jahr');
