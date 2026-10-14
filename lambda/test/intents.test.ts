@@ -288,6 +288,33 @@ describe('touch and events', () => {
     expect(said(voice)).toContain('Heute ist Mittwoch, 14. Oktober.');
   });
 
+  it('a tap on the daylight card keeps a screen (no blank page)', async () => {
+    const res = await t.invoke(envelope(userEvent('nav', 'daylight'), { apl: true, newSession: false }));
+    expect(directive(res)?.token).toBe('mainScreen');
+    expect(res.response.shouldEndSession).toBeUndefined();
+  });
+
+  // Every touch target answers with a screen: a tap answer without one ends the session and the
+  // Echo Show drops to a blank page (seen with tasks and the daylight card).
+  it.each([
+    ['nav', 'home'],
+    ['nav', 'today'],
+    ['nav', 'season'],
+    ['nav', 'moon'],
+    ['nav', 'moonGarden'],
+    ['nav', 'festival'],
+    ['nav', 'festival', 'imbolc'],
+    ['nav', 'daylight'],
+    ['nav', 'gardenToday'],
+    ['nav', 'gardenWeek'],
+    ['nav', 'task', 'fullAutumn-2', 'week'],
+    ['nav', 'say', 'imbolc'],
+    ['nav', 'say', 'moonGarden'],
+  ])('tap %s %s %s keeps a screen', async (...args) => {
+    const res = await t.invoke(envelope(userEvent(...args.filter((a): a is string => typeof a === 'string')), { apl: true, newSession: false }));
+    expect(directive(res)).toBeDefined();
+  });
+
   it('help chips work like the spoken question', async () => {
     const res = await t.invoke(envelope(userEvent('nav', 'say', 'imbolc'), { apl: true, newSession: false }));
     expect(said(res)).toContain('Imbolc war dieses Jahr');
