@@ -1,0 +1,58 @@
+{
+  "data": {
+    "date": "2026-10-14",
+    "timezone": "Europe/Vienna",
+    "moon": {
+      "phase": "waxing_crescent",
+      "name": "Zunehmende Sichel",
+      "illumination": 0.14,
+      "phase_angle": 43.5,
+      "waxing": true,
+      "rising": false,
+      "change_today": null,
+      "next_change": {
+        "phase": "first_quarter",
+        "name": "Erstes Viertel",
+        "date": "2026-10-18",
+        "at": "2026-10-18T16:13:19.496Z"
+      },
+      "upcoming": [
+        {
+          "phase": "first_quarter",
+          "name": "Erstes Viertel",
+          "date": "2026-10-18",
+          "at": "2026-10-18T16:13:19.496Z"
+        },
+        {
+          "phase": "full_moon",
+          "name": "Vollmond",
+          "date": "2026-10-26",
+          "at": "2026-10-26T04:12:15.538Z"
+        },
+        {
+          "phase": "last_quarter",
+          "name": "Letztes Viertel",
+          "date": "2026-11-01",
+          "at": "2026-11-01T20:28:58.794Z"
+        },
+        {
+          "phase": "new_moon",
+          "name": "Schwarzmond",
+          "date": "2026-11-09",
+          "at": "2026-11-09T07:02:42.392Z"
+        }
+      ],
+      "path_change_today": null,
+      "next_path_change": {
+        "turn": "lowest",
+        "name": "Tiefster Mondstand, ab jetzt steigt der Mond",
+        "date": "2026-10-16",
+        "at": "2026-10-16T02:37:43.267Z"
+      }
+    }
+  },
+  "meta": {
+    "api_version": "v1",
+    "generated_at": "2026-10-14T05:00:00.000Z"
+  }
+}

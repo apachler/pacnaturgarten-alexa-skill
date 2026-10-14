@@ -1,0 +1,388 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "jahresrad",
+      "intents": [
+        {
+          "name": "TodayIntent",
+          "samples": [
+            "was gibt's heute",
+            "was gibt es heute",
+            "wie steht das jahresrad",
+            "was ist heute los im jahr",
+            "tagesüberblick",
+            "den tagesüberblick",
+            "was ist heute",
+            "wo stehen wir im jahr",
+            "wo stehen wir im jahreskreis",
+            "was bringt der tag",
+            "gib mir den überblick",
+            "überblick",
+            "das jahresrad von heute",
+            "was es heute gibt",
+            "wie das jahresrad steht",
+            "was heute los ist",
+            "wo wir im jahr stehen"
+          ]
+        },
+        {
+          "name": "NextFestivalIntent",
+          "samples": [
+            "wann ist das nächste fest",
+            "welches fest kommt als nächstes",
+            "wie lange noch bis zum nächsten jahreskreisfest",
+            "wie lange dauert es bis zum nächsten fest",
+            "was ist das nächste fest",
+            "nächstes fest",
+            "das nächste fest",
+            "welches jahreskreisfest kommt als nächstes",
+            "wann feiern wir als nächstes",
+            "wann das nächste fest ist",
+            "welches fest als nächstes kommt",
+            "was das nächste fest ist"
+          ]
+        },
+        {
+          "name": "FestivalInfoIntent",
+          "slots": [
+            {
+              "name": "festival",
+              "type": "FESTIVAL"
+            }
+          ],
+          "samples": [
+            "erzähl mir von {festival}",
+            "erzähl mir etwas über {festival}",
+            "wann ist {festival}",
+            "was bedeutet {festival}",
+            "was ist {festival}",
+            "wann feiern wir {festival}",
+            "mehr über {festival}",
+            "über {festival}",
+            "{festival}",
+            "wie lange noch bis {festival}",
+            "was weißt du über {festival}",
+            "ein fest",
+            "erzähl mir von einem fest",
+            "wann {festival} ist",
+            "was {festival} bedeutet"
+          ]
+        },
+        {
+          "name": "MoonIntent",
+          "slots": [
+            {
+              "name": "moonEvent",
+              "type": "MOON_EVENT"
+            }
+          ],
+          "samples": [
+            "wie steht der mond",
+            "welche mondphase haben wir",
+            "welche mondphase ist heute",
+            "wann ist {moonEvent}",
+            "wann ist der nächste {moonEvent}",
+            "wann haben wir {moonEvent}",
+            "wann ist wieder {moonEvent}",
+            "mondphase",
+            "der mond",
+            "den mond",
+            "mehr über den mond",
+            "über den mond",
+            "was macht der mond",
+            "wie sieht der mond aus",
+            "nimmt der mond zu oder ab",
+            "ist zunehmender oder abnehmender mond",
+            "wie der mond steht",
+            "welche mondphase wir haben",
+            "wann {moonEvent} ist",
+            "wann der nächste {moonEvent} ist"
+          ]
+        },
+        {
+          "name": "MoonGardenIntent",
+          "samples": [
+            "was sagt der mond zum garten",
+            "gärtnern mit dem mond",
+            "mondgarten",
+            "mondkalender",
+            "was sagt der mondkalender",
+            "ist heute ein guter tag zum säen",
+            "kann ich heute säen",
+            "ist heute ein guter tag zum pflanzen",
+            "steigt oder sinkt der mond",
+            "ist der mond aufsteigend oder absteigend",
+            "gärtnern nach dem mond",
+            "was der mond zum garten sagt",
+            "ob heute ein guter tag zum säen ist"
+          ]
+        },
+        {
+          "name": "DaylightIntent",
+          "samples": [
+            "wann geht die sonne auf",
+            "wann geht die sonne unter",
+            "wann ist sonnenaufgang",
+            "wann ist sonnenuntergang",
+            "wie lange ist es heute hell",
+            "werden die tage länger",
+            "werden die tage kürzer",
+            "wie lang ist der tag heute",
+            "tageslicht",
+            "sonnenaufgang",
+            "sonnenuntergang",
+            "wie viel tageslicht haben wir",
+            "wann die sonne aufgeht",
+            "wann die sonne untergeht",
+            "wie lange es heute hell ist",
+            "ob die tage länger werden"
+          ]
+        },
+        {
+          "name": "GardenTodayIntent",
+          "samples": [
+            "was ist heute im garten zu tun",
+            "gartentipp",
+            "gib mir einen gartentipp",
+            "was soll ich im garten machen",
+            "was kann ich heute im garten machen",
+            "was gibt es im garten zu tun",
+            "gartenarbeit für heute",
+            "was steht heute im garten an",
+            "was heute im garten zu tun ist",
+            "was ich im garten machen soll"
+          ]
+        },
+        {
+          "name": "GardenWeekIntent",
+          "samples": [
+            "was steht diese woche im garten an",
+            "gartenarbeiten der woche",
+            "die gartenarbeiten der woche",
+            "die gartenarbeiten",
+            "wochenplan",
+            "den wochenplan",
+            "was ist diese woche im garten zu tun",
+            "gartenarbeiten für diese woche",
+            "gartenplan der woche",
+            "was diese woche im garten ansteht",
+            "was diese woche im garten zu tun ist"
+          ]
+        },
+        {
+          "name": "SeasonIntent",
+          "samples": [
+            "welche jahreszeit haben wir",
+            "welche naturjahreszeit ist gerade",
+            "welche naturjahreszeit haben wir",
+            "in welcher jahreszeit sind wir",
+            "was ist gerade in der natur los",
+            "naturjahreszeit",
+            "die jahreszeit",
+            "was ist vollherbst",
+            "welche phänologische jahreszeit haben wir",
+            "welche jahreszeit wir haben",
+            "welche naturjahreszeit gerade ist"
+          ]
+        },
+        {
+          "name": "DayIntent",
+          "slots": [
+            {
+              "name": "date",
+              "type": "AMAZON.DATE"
+            }
+          ],
+          "samples": [
+            "wie sieht es am {date} aus",
+            "was ist am {date}",
+            "was ist am {date} los",
+            "wie steht das jahresrad am {date}",
+            "erzähl mir vom {date}",
+            "was bringt der {date}",
+            "wie ist es am {date}",
+            "wie es am {date} aussieht",
+            "was am {date} ist"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": [
+            "was kann ich fragen",
+            "was kannst du"
+          ]
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        }
+      ],
+      "types": [
+        {
+          "name": "FESTIVAL",
+          "values": [
+            {
+              "id": "samhain",
+              "name": {
+                "value": "Samhain",
+                "synonyms": [
+                  "Samain",
+                  "Totenfest",
+                  "keltisches Neujahr"
+                ]
+              }
+            },
+            {
+              "id": "yule",
+              "name": {
+                "value": "Yule",
+                "synonyms": [
+                  "Jul",
+                  "Julfest",
+                  "Wintersonnenwende",
+                  "Wintersonnwende",
+                  "Winterfest"
+                ]
+              }
+            },
+            {
+              "id": "imbolc",
+              "name": {
+                "value": "Imbolc",
+                "synonyms": [
+                  "Lichtmess",
+                  "Lichterfest",
+                  "Maria Lichtmess"
+                ]
+              }
+            },
+            {
+              "id": "ostara",
+              "name": {
+                "value": "Ostara",
+                "synonyms": [
+                  "Frühlings-Tagundnachtgleiche",
+                  "Frühlingstagundnachtgleiche",
+                  "Frühlingsfest"
+                ]
+              }
+            },
+            {
+              "id": "beltane",
+              "name": {
+                "value": "Beltane",
+                "synonyms": [
+                  "Beltaine",
+                  "Walpurgis",
+                  "Walpurgisnacht",
+                  "Fruchtbarkeitsfest"
+                ]
+              }
+            },
+            {
+              "id": "litha",
+              "name": {
+                "value": "Litha",
+                "synonyms": [
+                  "Sommersonnenwende",
+                  "Sommersonnwende",
+                  "Mittsommer",
+                  "Sommerfest"
+                ]
+              }
+            },
+            {
+              "id": "lughnasadh",
+              "name": {
+                "value": "Lughnasadh",
+                "synonyms": [
+                  "Lammas",
+                  "Schnitterfest",
+                  "Lughnasad",
+                  "Erntefest"
+                ]
+              }
+            },
+            {
+              "id": "mabon",
+              "name": {
+                "value": "Mabon",
+                "synonyms": [
+                  "Herbst-Tagundnachtgleiche",
+                  "Herbsttagundnachtgleiche",
+                  "Erntedank",
+                  "Herbstfest"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "MOON_EVENT",
+          "values": [
+            {
+              "id": "full_moon",
+              "name": {
+                "value": "Vollmond",
+                "synonyms": [
+                  "volle Mond",
+                  "vollen Mond"
+                ]
+              }
+            },
+            {
+              "id": "new_moon",
+              "name": {
+                "value": "Neumond",
+                "synonyms": [
+                  "Schwarzmond",
+                  "neuer Mond"
+                ]
+              }
+            },
+            {
+              "id": "first_quarter",
+              "name": {
+                "value": "erstes Viertel",
+                "synonyms": [
+                  "zunehmender Halbmond",
+                  "erster Halbmond"
+                ]
+              }
+            },
+            {
+              "id": "last_quarter",
+              "name": {
+                "value": "letztes Viertel",
+                "synonyms": [
+                  "abnehmender Halbmond",
+                  "letzter Halbmond"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

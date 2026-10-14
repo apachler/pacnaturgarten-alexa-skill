@@ -1,0 +1,7 @@
+{
+  "name": "jahresrad-skill-lambda",
+  "private": true,
+  "license": "GPL-3.0-only",
+  "description": "Deploy unit for the Alexa-hosted skill: index.js is the esbuild bundle of src/ (npm run build in the repo root).",
+  "main": "index.js"
+}

@@ -1,0 +1,22 @@
+{
+  "data": {
+    "date": "2026-10-14",
+    "timezone": "Europe/Vienna",
+    "location": {
+      "type": "default",
+      "label": "Klagenfurt",
+      "lat": 46.6,
+      "lon": 14.3
+    },
+    "daylight": {
+      "sunrise": "07:19",
+      "sunset": "18:18",
+      "day_length_min": 659,
+      "change_vs_yesterday_min": -4
+    }
+  },
+  "meta": {
+    "api_version": "v1",
+    "generated_at": "2026-10-14T05:00:00.000Z"
+  }
+}

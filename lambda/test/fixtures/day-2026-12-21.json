@@ -1,0 +1,179 @@
+{
+  "data": {
+    "date": "2026-12-21",
+    "weekday": "Montag",
+    "timezone": "Europe/Vienna",
+    "location": {
+      "type": "default",
+      "label": "Klagenfurt",
+      "lat": 46.6,
+      "lon": 14.3
+    },
+    "season": {
+      "id": "winter",
+      "name": "Winter",
+      "since": "2026-11-16",
+      "indicators": [
+        "Stiel-Eiche wirft das Laub",
+        "Lärche wirft die Nadeln"
+      ],
+      "source": "hopkins",
+      "next": {
+        "id": "preSpring",
+        "name": "Vorfrühling",
+        "date": "2027-02-03"
+      }
+    },
+    "festival": {
+      "today": {
+        "id": "yule",
+        "name": "Yule",
+        "date": "2026-12-21",
+        "rule": "Wintersonnenwende",
+        "short": "Die Rückkehr des Lichts aus der Dunkelheit",
+        "epithet": "Winterfest",
+        "customs": "Das Samenkorn erwacht und fängt zu keimen an. Es sehnt sich nach dem Licht.\nEs ist die dunkelste Nacht des Jahres, die das Licht gebiert. Opfergaben für Wildtiere.",
+        "impulses": [
+          "Was will von mir geboren werden, was will ans Licht?",
+          "Welches Talent will von mir erträumt werden?"
+        ]
+      },
+      "eve": null,
+      "next": {
+        "id": "imbolc",
+        "name": "Imbolc",
+        "date": "2027-01-22",
+        "rule": "2. Vollmond nach der Wintersonnenwende",
+        "short": "Das erste Lichtfest und Erwachen der Erde",
+        "epithet": "Lichterfest",
+        "customs": "Das Samenkorn hat gekeimt und treibt dem Licht entgegen.\nEs ist ein Fest der Weihe, Reinigung und Stille. Das Licht hat endgültig gesiegt.",
+        "impulses": [
+          "Was will von mir gereinigt bzw. bereinigt werden?",
+          "Welches neue Talent habe ich zum Julfest geboren das ich jetzt begrüßen darf?",
+          "Was ich erträumt habe wird jetzt spürbar?",
+          "Wie kann ich es stärken?"
+        ],
+        "days_until": 32
+      }
+    },
+    "period": null,
+    "moon": {
+      "phase": "waxing_gibbous",
+      "name": "Zunehmender Mond",
+      "illumination": 0.9,
+      "phase_angle": 143.4,
+      "waxing": true,
+      "rising": true,
+      "change_today": null,
+      "next_change": {
+        "phase": "full_moon",
+        "name": "Vollmond",
+        "date": "2026-12-24",
+        "at": "2026-12-24T01:28:45.040Z"
+      },
+      "upcoming": [
+        {
+          "phase": "full_moon",
+          "name": "Vollmond",
+          "date": "2026-12-24",
+          "at": "2026-12-24T01:28:45.040Z"
+        },
+        {
+          "phase": "last_quarter",
+          "name": "Letztes Viertel",
+          "date": "2026-12-30",
+          "at": "2026-12-30T19:00:07.341Z"
+        },
+        {
+          "phase": "new_moon",
+          "name": "Schwarzmond",
+          "date": "2027-01-07",
+          "at": "2027-01-07T20:25:05.910Z"
+        },
+        {
+          "phase": "first_quarter",
+          "name": "Erstes Viertel",
+          "date": "2027-01-15",
+          "at": "2027-01-15T20:35:05.099Z"
+        }
+      ],
+      "path_change_today": null,
+      "next_path_change": {
+        "turn": "highest",
+        "name": "Höchster Mondstand, ab jetzt sinkt der Mond",
+        "date": "2026-12-23",
+        "at": "2026-12-23T12:25:34.568Z"
+      }
+    },
+    "daylight": {
+      "sunrise": "07:44",
+      "sunset": "16:17",
+      "day_length_min": 513,
+      "change_vs_yesterday_min": 0
+    },
+    "garden": {
+      "tasks": [
+        {
+          "id": "winter-1",
+          "title": "Winterschutz kontrollieren",
+          "speech": "Winterschutz kontrollieren."
+        },
+        {
+          "id": "winter-2",
+          "title": "Werkzeug pflegen",
+          "speech": "Werkzeug pflegen."
+        },
+        {
+          "id": "winter-3",
+          "title": "Saatgut prüfen und für den Tausch sortieren",
+          "speech": "Saatgut prüfen und für den Tausch sortieren."
+        },
+        {
+          "id": "winter-4",
+          "title": "Vögel füttern",
+          "speech": "Vögel füttern."
+        },
+        {
+          "id": "winter-5",
+          "title": "Rückzug und Regeneration — auch für die Gärtnerin, den Gärtner",
+          "speech": "Rückzug und Regeneration — auch für die Gärtnerin, den Gärtner."
+        },
+        {
+          "id": "winter-6",
+          "title": "Das kommende Gartenjahr planen",
+          "speech": "Das kommende Gartenjahr planen."
+        },
+        {
+          "id": "winter-7",
+          "title": "Rituale zur Einstimmung auf das neue Gartenjahr",
+          "speech": "Rituale zur Einstimmung auf das neue Gartenjahr."
+        }
+      ],
+      "moon": {
+        "waxing": true,
+        "rising": true,
+        "rhythm": {
+          "phase": "zunehmend",
+          "path": "aufsteigend (obsigend)",
+          "text": "Der Mond nimmt zu und steigt"
+        },
+        "tips": [
+          {
+            "id": "scions",
+            "text": "Edelreiser zum Veredeln schneiden"
+          }
+        ],
+        "note": "Alte Gartenweisheit, keine Wissenschaft: Boden und Wetter gehen vor.",
+        "speech": "Der Mond nimmt zu und steigt: nach alter Gartenregel gut zum Schneiden von Edelreisern."
+      }
+    },
+    "image": null,
+    "summary": {
+      "speech": "Montag, 21. Dezember. An diesem Tag feiern wir Yule, Winterfest. In der Natur ist Winter: Stiel-Eiche wirft das Laub. Der Mond: Zunehmender Mond, zu 90 Prozent beleuchtet. Die Sonne geht um 7 Uhr 44 auf und um 16 Uhr 17 unter. Gartentipp: Winterschutz kontrollieren. Der Mond nimmt zu und steigt: nach alter Gartenregel gut zum Schneiden von Edelreisern."
+    }
+  },
+  "meta": {
+    "api_version": "v1",
+    "generated_at": "2026-10-14T05:00:00.000Z"
+  }
+}

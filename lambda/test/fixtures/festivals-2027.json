@@ -1,0 +1,129 @@
+{
+  "data": {
+    "year": 2027,
+    "festivals": [
+      {
+        "id": "imbolc",
+        "name": "Imbolc",
+        "date": "2027-01-22",
+        "rule": "2. Vollmond nach der Wintersonnenwende",
+        "short": "Das erste Lichtfest und Erwachen der Erde",
+        "epithet": "Lichterfest",
+        "customs": "Das Samenkorn hat gekeimt und treibt dem Licht entgegen.\nEs ist ein Fest der Weihe, Reinigung und Stille. Das Licht hat endgültig gesiegt.",
+        "impulses": [
+          "Was will von mir gereinigt bzw. bereinigt werden?",
+          "Welches neue Talent habe ich zum Julfest geboren das ich jetzt begrüßen darf?",
+          "Was ich erträumt habe wird jetzt spürbar?",
+          "Wie kann ich es stärken?"
+        ]
+      },
+      {
+        "id": "ostara",
+        "name": "Ostara",
+        "date": "2027-03-20",
+        "rule": "Frühlings-Tagundnachtgleiche",
+        "short": "Balance zwischen Licht und Dunkelheit",
+        "epithet": "Frühlingsfest",
+        "customs": "Der Keimling ist durch die Erde gestoßen. Seine Keimblätter genießen das Licht. Er braucht Pflege.\nDas letzte Fest im dunklen Halbjahr. Die Tage werden wieder länger.\nSchutz und Fruchtbarkeit bringt der Frühlingsherold.",
+        "impulses": [
+          "Wie kann das junge Pflänzchen in mir in die Welt hinein sichtbar werden?",
+          "Welche Nahrung, Pflege und Raum braucht es?"
+        ]
+      },
+      {
+        "id": "beltane",
+        "name": "Beltane",
+        "date": "2027-05-06",
+        "rule": "5. Schwarzmond nach der Wintersonnenwende",
+        "short": "Das Feuer der Fruchtbarkeit und Lebenskraft",
+        "epithet": "Fruchtbarkeitsfest",
+        "customs": "Das Pflänzchen ist zur Blütenknospe herangewachsen, die Knospe öffnet sich.\nEine lustige Mai-Orgie, in der wir um das Feuer tanzen und über unsere Schatten springen.\nEin Fest der Lust, der Freude und der Ekstase.\nFrage nichts! Feiere dich pur!",
+        "impulses": []
+      },
+      {
+        "id": "litha",
+        "name": "Litha",
+        "date": "2027-06-21",
+        "rule": "Sommersonnenwende",
+        "short": "Der Höhepunkt der Sonnenkraft",
+        "epithet": "Sommerfest",
+        "customs": "Die Knospe ist erblüht und befruchtet. Der Same für das Kommende ist gelegt. Bald werden die Blätter fallen.\nEs ist der hellste Tag des Jahres. Der Spiegel zur Wintersonnenwende. Alles ist lebendig und voller Kraft.\nFür viele Kräuter ist jetzt Erntezeit! Es wird der Kräuterbuschen (7, 9, 77 oder 99 Kräuter) gebunden.",
+        "impulses": [
+          "Bin ich dieses Jahr erblüht?",
+          "Kann in mir und durch mich Frucht reifen?",
+          "Was ist in mir erblüht?"
+        ]
+      },
+      {
+        "id": "lughnasadh",
+        "name": "Lughnasadh",
+        "date": "2027-07-18",
+        "rule": "8. Vollmond nach der Wintersonnenwende",
+        "short": "Das Fest der ersten Ernte und Dankbarkeit",
+        "epithet": "Erntefest",
+        "customs": "Die Pflanze trägt Samen, sie müssen noch ausreifen.\nEs ist der Beginn der Erntezeit und um uns herum steht alles in Blüte und Fülle.\nEs werden Feuer zum Wettersegen entzündet.\nKränze aus Blüten und Ähren werden gebunden um die Fülle des Sommers zu ehren.",
+        "impulses": [
+          "Muss ich meine Frucht schützen?",
+          "Wie kann ich sie behüten und stärken?"
+        ]
+      },
+      {
+        "id": "mabon",
+        "name": "Mabon",
+        "date": "2027-09-23",
+        "rule": "Herbst-Tagundnachtgleiche",
+        "short": "Erntedank und innerer Ausgleich",
+        "epithet": "Herbstfest/Erntedank",
+        "customs": "Das Samenkorn ist reif und hängt an der Ähre.\nEs ist Zeit ein Freudenfest zu feiern und für die inneren und äußeren Gaben zu danken.\nZum Erntedankfest gehören Tanz und Gesang, ein Festmahl und Freude. Ein Fest der Fülle!\nDer Höhepunkt vor dem kommenden Sterben.\nWo ist meine Fülle? Eine Fülle die sich im Verschenken vermehrt.",
+        "impulses": [
+          "Was ist meine Frucht und Ernte dieses Jahr?",
+          "Was sind meine Gaben, wo kann ich mich ganz und gar verschenken?"
+        ]
+      },
+      {
+        "id": "samhain",
+        "name": "Samhain",
+        "date": "2027-10-29",
+        "rule": "11. Schwarzmond nach der Wintersonnenwende",
+        "short": "Das Fest der Ahnen und des Übergangs",
+        "epithet": "Totenfest",
+        "customs": "Die Ähre ist abgestorben, das Samenkorn fällt auf die Erde und schläft.\nDer neue Zyklus beginnt. Er beginnt mit dem Sterben, denn nur durch Loslassen kann Neues entstehen.",
+        "impulses": [
+          "Was brauche ich nicht mehr und kann es jetzt loslassen?",
+          "Was will in mir sterben um Platz für Neues zu schaffen?"
+        ]
+      },
+      {
+        "id": "yule",
+        "name": "Yule",
+        "date": "2027-12-22",
+        "rule": "Wintersonnenwende",
+        "short": "Die Rückkehr des Lichts aus der Dunkelheit",
+        "epithet": "Winterfest",
+        "customs": "Das Samenkorn erwacht und fängt zu keimen an. Es sehnt sich nach dem Licht.\nEs ist die dunkelste Nacht des Jahres, die das Licht gebiert. Opfergaben für Wildtiere.",
+        "impulses": [
+          "Was will von mir geboren werden, was will ans Licht?",
+          "Welches Talent will von mir erträumt werden?"
+        ]
+      }
+    ],
+    "periods": [
+      {
+        "id": "rauhnaechte",
+        "name": "Rauhnächte",
+        "date": "2026-12-25",
+        "end_date": "2027-01-05"
+      },
+      {
+        "id": "rauhnaechte",
+        "name": "Rauhnächte",
+        "date": "2027-12-25",
+        "end_date": "2028-01-05"
+      }
+    ]
+  },
+  "meta": {
+    "api_version": "v1",
+    "generated_at": "2026-10-14T05:00:00.000Z"
+  }
+}

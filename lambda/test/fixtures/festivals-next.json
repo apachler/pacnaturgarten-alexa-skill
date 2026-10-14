@@ -1,0 +1,24 @@
+{
+  "data": {
+    "today": "2026-10-14",
+    "festival": {
+      "id": "samhain",
+      "name": "Samhain",
+      "date": "2026-11-09",
+      "rule": "11. Schwarzmond nach der Wintersonnenwende",
+      "short": "Das Fest der Ahnen und des Übergangs",
+      "epithet": "Totenfest",
+      "customs": "Die Ähre ist abgestorben, das Samenkorn fällt auf die Erde und schläft.\nDer neue Zyklus beginnt. Er beginnt mit dem Sterben, denn nur durch Loslassen kann Neues entstehen.",
+      "impulses": [
+        "Was brauche ich nicht mehr und kann es jetzt loslassen?",
+        "Was will in mir sterben um Platz für Neues zu schaffen?"
+      ],
+      "days_until": 26,
+      "speech": "Das nächste Fest ist Samhain am Montag, 9. November, in 26 Tagen. Das Fest der Ahnen und des Übergangs."
+    }
+  },
+  "meta": {
+    "api_version": "v1",
+    "generated_at": "2026-10-14T05:00:00.000Z"
+  }
+}
