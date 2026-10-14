@@ -3,8 +3,8 @@
 //
 //   npm run stage:hosted -- <path to the hosted skill checkout>
 //
-// Copied: lambda/index.js, lambda/package.json, the interaction model, and the manifest. The
-// manifest is merged so the hosted skill keeps what Amazon manages (endpoint, regions, icons).
+// Copied: lambda/index.js, lambda/package.json, the interaction model, the icons and the manifest.
+// The manifest is merged so the hosted skill keeps what Amazon manages (endpoint, regions).
 // Nothing is committed or pushed; that stays a deliberate step.
 import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -41,11 +41,15 @@ if (theirs.apis?.custom?.regions) merged.apis.custom.regions = theirs.apis.custo
 if (theirs.events?.endpoint) merged.events.endpoint = theirs.events.endpoint;
 else if (theirs.apis?.custom?.endpoint?.uri) merged.events.endpoint = { uri: theirs.apis.custom.endpoint.uri };
 if (theirs.events?.regions) merged.events.regions = theirs.events.regions;
+// Icons: ours (skill-package/assets) when the manifest names them, otherwise the hosted skill's.
 for (const [locale, info] of Object.entries(theirs.publishingInformation?.locales ?? {})) {
   const mine = merged.publishingInformation.locales[locale];
   if (!mine) continue;
-  if (info.smallIconUri) mine.smallIconUri = info.smallIconUri;
-  if (info.largeIconUri) mine.largeIconUri = info.largeIconUri;
+  if (!mine.smallIconUri && info.smallIconUri) mine.smallIconUri = info.smallIconUri;
+  if (!mine.largeIconUri && info.largeIconUri) mine.largeIconUri = info.largeIconUri;
+}
+if (existsSync(join(root, 'skill-package', 'assets'))) {
+  cpSync(join(root, 'skill-package', 'assets'), join(dest, 'skill-package', 'assets'), { recursive: true });
 }
 writeFileSync(theirsPath, JSON.stringify({ manifest: merged }, null, 2) + '\n');
 

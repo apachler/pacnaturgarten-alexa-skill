@@ -86,31 +86,56 @@ against Amazon's APL schema (`apl-suggester`) on all three viewport sizes.
 
 ## Deploying (Alexa-hosted)
 
-1. In the [Alexa developer console](https://developer.amazon.com/alexa/console/ask), create a
-   skill: name „Jahresrad“, locale German (DE), model *Custom*, hosting *Alexa-hosted (Node.js)*,
-   region *EU (Ireland)*.
-2. Clone its code locally: `ask init --hosted-skill-id <skill id>` (ASK CLI v2).
-3. From this repo: `npm run stage:hosted -- <path to that checkout>`. This copies the bundle,
-   the interaction model and the manifest, keeping the hosted skill's endpoint and icons.
-4. In the checkout: `git add -A && git commit -m "…" && ask deploy`.
-5. Account Linking: fill a copy of `skill-package/accountLinking.template.json` with the values
-   of `OAUTH_ALEXA_CLIENT_ID` / `OAUTH_ALEXA_CLIENT_SECRET` (never commit it), then
-   `ask smapi update-account-linking-info -s <skill id> --account-linking-request file:<copy>` — or
-   enter the same values in the console (Build → Account Linking). Put every redirect URL the
-   console shows into `OAUTH_ALEXA_REDIRECT_URIS` on Netlify.
-6. Upload the icons (108 and 512 px) in the console (Distribution).
-7. Test in the console simulator and on an Echo Show and a screenless Echo.
+### Once: tools and the skill
+
+1. **ASK CLI** (needs Node 22 and git): `npm install -g ask-cli`, then `ask configure`. A browser
+   opens; sign in with your Amazon developer account (developer.amazon.com). When asked about an
+   AWS profile, answer **no**: an Alexa-hosted skill needs none.
+2. **Create the skill** in the [developer console](https://developer.amazon.com/alexa/console/ask)
+   → *Create Skill*: name „Jahresrad“, locale *German (DE)*, experience *Other* → *Custom*, model
+   *Start from scratch*, hosting **Alexa-hosted (Node.js)**, region **EU (Ireland)**. Copy the skill
+   id (`amzn1.ask.skill.…`) from the skill list.
+3. **Fetch its code**: in an empty folder outside this repo,
+   `ask init --hosted-skill-id <skill id>`. That folder is the hosted skill's own git repository.
+4. **Account Linking**: copy `skill-package/accountLinking.template.json` to a place outside any
+   repo, fill in `OAUTH_ALEXA_CLIENT_ID` / `OAUTH_ALEXA_CLIENT_SECRET` (the values set on Netlify),
+   then `ask smapi update-account-linking-info -s <skill id> --account-linking-request file:<copy>`.
+   Delete the copy afterwards. Or enter the same values in the console (*Build → Account Linking*).
+5. **Redirect URLs**: the console shows them under *Build → Account Linking* („Alexa Redirect
+   URLs“). Put all of them, comma-separated, into `OAUTH_ALEXA_REDIRECT_URIS` on Netlify; production
+   needs a redeploy to pick up the change (or wait for the next release).
+
+### Every release of the skill
+
+```bash
+npm run verify
+npm run stage:hosted -- <hosted skill folder>      # bundle, model, manifest, icons
+cd <hosted skill folder> && git add -A && git commit -m "Jahresrad <version>" && ask deploy
+```
+
+`ask deploy` updates the manifest and interaction model and pushes the code; the hosted Lambda
+deploys itself from that push.
+
+### Testing
+
+- Console → *Test* → enable „Development“, type or say „öffne jahresrad“. The simulator shows the
+  APL screens for different Echo Show sizes.
+- Link the account first: Alexa app → *More → Skills & Games → Your Skills → Dev* → Jahresrad →
+  *Enable* → sign in on naturgarten.bio → *Erlauben*.
+- Devices signed in with the same Amazon account get the development version: test on an Echo Show
+  and a screenless Echo.
+- Logs: console → *Code* → *CloudWatch Logs*. Lines are JSON (`event`, request type, errors).
 
 ## Before publishing
 
-- [ ] The wheel-only images and gardening with the moon are on `preview` of the main repo;
-      they must be **released to production** (naturgarten.bio) before the skill goes live.
-      Until then the skill falls back to the square image with text.
-- [ ] Terms of use URL: naturgarten.bio has no terms page yet (only `/privacy`). The privacy
-      policy must cover Account Linking and the skill.
-- [ ] Icons 108 px and 512 px.
-- [ ] A test Gefährten account for Amazon's reviewers (in the certification form).
-- [ ] Tests on at least one Echo Show and one screenless device; `ask dialog` replays.
+- [x] Wheel-only images and gardening with the moon are live on naturgarten.bio.
+- [x] Icons (108 and 512 px, from the wheel) in `skill-package/assets/images`.
+- [ ] Terms of use: page `/nutzungsbedingungen` and the Alexa section of the privacy policy are
+      in PR apachler/pacnaturgarten#89; they must be released before certification (the manifest
+      already points to the URL).
+- [ ] A test Gefährten account for Amazon's reviewers (separate account, approved; its password
+      only in the certification form).
+- [ ] Tests on at least one Echo Show and one screenless device.
 
 ## License
 

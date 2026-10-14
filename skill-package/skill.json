@@ -12,11 +12,28 @@
             "Alexa, frag Jahresrad, wann das nächste Fest ist",
             "Alexa, frag Jahresrad, wie der Mond steht"
           ],
-          "keywords": ["Jahresrad", "Jahreskreis", "Garten", "Naturgarten", "Mond", "Mondphase", "Samhain", "Kelten", "Gartentipps", "Naturjahreszeit"]
+          "keywords": [
+            "Jahresrad",
+            "Jahreskreis",
+            "Garten",
+            "Naturgarten",
+            "Mond",
+            "Mondphase",
+            "Samhain",
+            "Kelten",
+            "Gartentipps",
+            "Naturjahreszeit"
+          ],
+          "smallIconUri": "file://assets/images/de-DE_smallIconUri.png",
+          "largeIconUri": "file://assets/images/de-DE_largeIconUri.png"
         }
       },
       "isAvailableWorldwide": false,
-      "distributionCountries": ["DE", "AT", "CH"],
+      "distributionCountries": [
+        "DE",
+        "AT",
+        "CH"
+      ],
       "distributionMode": "PUBLIC",
       "category": "EDUCATION_AND_REFERENCE",
       "testingInstructions": "Der Skill braucht die Kontoverknüpfung mit einem freigeschalteten Gefährten-Konto auf naturgarten.bio. Testkonto: siehe die Angaben, die der Herausgeber im Zertifizierungsantrag hinterlegt. Ohne Verknüpfung antwortet jeder Aufruf mit einer LinkAccount-Karte. Ein Konto ohne Gefährten-Zugang erhält einen Hinweis und eine einfache Karte."
@@ -29,7 +46,8 @@
       "containsAds": false,
       "locales": {
         "de-DE": {
-          "privacyPolicyUrl": "https://naturgarten.bio/privacy"
+          "privacyPolicyUrl": "https://naturgarten.bio/privacy",
+          "termsOfUseUrl": "https://naturgarten.bio/nutzungsbedingungen"
         }
       }
     },
@@ -39,16 +57,41 @@
           {
             "type": "ALEXA_PRESENTATION_APL",
             "supportedViewports": [
-              { "mode": "HUB", "shape": "RECTANGLE", "minWidth": 960, "maxWidth": 1279, "minHeight": 480, "maxHeight": 599 },
-              { "mode": "HUB", "shape": "RECTANGLE", "minWidth": 1280, "maxWidth": 1920, "minHeight": 600, "maxHeight": 1279 },
-              { "mode": "HUB", "shape": "RECTANGLE", "minWidth": 1080, "maxWidth": 1279, "minHeight": 1280, "maxHeight": 1920 }
+              {
+                "mode": "HUB",
+                "shape": "RECTANGLE",
+                "minWidth": 960,
+                "maxWidth": 1279,
+                "minHeight": 480,
+                "maxHeight": 599
+              },
+              {
+                "mode": "HUB",
+                "shape": "RECTANGLE",
+                "minWidth": 1280,
+                "maxWidth": 1920,
+                "minHeight": 600,
+                "maxHeight": 1279
+              },
+              {
+                "mode": "HUB",
+                "shape": "RECTANGLE",
+                "minWidth": 1080,
+                "maxWidth": 1279,
+                "minHeight": 1280,
+                "maxHeight": 1920
+              }
             ]
           }
         ]
       }
     },
     "events": {
-      "subscriptions": [{ "eventName": "SKILL_DISABLED" }]
+      "subscriptions": [
+        {
+          "eventName": "SKILL_DISABLED"
+        }
+      ]
     }
   }
 }
