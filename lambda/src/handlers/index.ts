@@ -97,14 +97,16 @@ const yes: RequestHandler = {
       case 'whichFestival':
         return respond(hi, { speech: '', ask: { question: T.whichFestival, pending } });
       default:
-        return fallbackResponse(hi);
+        // A „ja“ nobody asked for (e.g. after a list that ended without a question): take it kindly.
+        return respond(hi, { speech: T.gladly, ask: { question: T.whatThen, reprompt: T.reprompt } });
     }
   },
 };
 
+/** „Nein“ ends kindly, whether or not a question was pending. */
 const no: RequestHandler = {
   canHandle: (hi) => getRequestType(hi.requestEnvelope) === 'IntentRequest' && getIntentName(hi.requestEnvelope) === 'AMAZON.NoIntent',
-  handle: (hi) => (getPending(hi) ? respond(hi, { speech: `${T.okay} ${T.goodbye}`, end: true }) : fallbackResponse(hi)),
+  handle: (hi) => respond(hi, { speech: `${T.okay} ${T.goodbye}`, end: true }),
 };
 
 // ---------- touch (APL UserEvent) ----------

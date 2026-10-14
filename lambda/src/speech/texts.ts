@@ -24,6 +24,7 @@ export const T = {
   readOn: 'Soll ich weiterlesen?',
   moreCustoms: 'Soll ich dir mehr über das Brauchtum erzählen?',
   okay: 'Alles klar.',
+  gladly: 'Gern.',
   moonNote: 'Das ist alte Gartenweisheit, keine Wissenschaft: Boden und Wetter gehen vor.',
   locationHint: (label: string) =>
     `Ich rechne gerade mit ${label} als Ort. Wenn du in deinem Profil auf naturgarten.bio deinen Garten einträgst, stimmen Sonnenzeiten und Jahreszeiten genauer.`,
