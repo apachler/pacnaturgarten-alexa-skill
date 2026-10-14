@@ -73,7 +73,9 @@ export function text(
     ...(opts.upper ? { letterSpacing: '1dp' } : {}),
     ...(opts.maxLines ? { maxLines: opts.maxLines } : {}),
     ...(opts.align ? { textAlign: opts.align } : {}),
-    ...(opts.grow ? { grow: 1, shrink: 1 } : {}),
+    // Basis 0: the text takes the free width of its row instead of measuring itself as one long line
+    // (which pushed the garden tip off the screen on the Echo Show 5).
+    ...(opts.grow ? { grow: 1, shrink: 1, width: '0dp' } : {}),
   };
 }
 

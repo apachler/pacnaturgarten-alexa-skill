@@ -19,8 +19,9 @@ const screens: [string, (k: ViewportKind) => Screen][] = [
   ['festival', (k) => festivalScreen(next.festival!, '2026-10-14', k)],
   ['moon', (k) => moonScreen(day.moon, k)],
   ['moon with garden tips', (k) => moonScreen(spring.moon, k, spring.garden.moon)],
-  ['garden today', (k) => gardenScreen({ title: 'Heute', groups: [{ tasks: day.garden.tasks }], moon: spring.garden.moon }, k)],
-  ['garden week', (k) => gardenScreen({ title: 'Diese Woche', subtitle: 'Mi, 14. Oktober – Di, 20. Oktober', groups: weekGroups(week) }, k)],
+  ['garden today', (k) => gardenScreen({ view: 'today', title: 'Heute', groups: [{ tasks: day.garden.tasks }], moon: spring.garden.moon }, k)],
+  ['garden week', (k) => gardenScreen({ view: 'week', title: 'Diese Woche', subtitle: 'Mi, 14. Oktober – Di, 20. Oktober', groups: weekGroups(week) }, k)],
+  ['garden week, a task tapped', (k) => gardenScreen({ view: 'week', title: 'Diese Woche', groups: weekGroups(week), highlight: 'fullAutumn-2' }, k)],
   ['help', (k) => helpScreen(k)],
   ['error', (k) => errorScreen(k, 'Das Jahresrad ist gerade nicht erreichbar.', 'Bitte versuch es später noch einmal.')],
 ];
