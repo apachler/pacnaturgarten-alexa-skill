@@ -67,10 +67,10 @@ function card(c: CardSpec, s: Sizes): Component {
   return box(inner, s, c.festive ? { fill: C.festival, border: C.festivalBorder, extra: flex, tap: tapped } : { extra: flex, tap: tapped });
 }
 
-function mainCards(day: Day, s: Sizes): CardSpec[] {
+function mainCards(day: Day, s: Sizes, compact = false): CardSpec[] {
   const cards: CardSpec[] = [];
   if (day.season) {
-    cards.push({ label: 'Naturjahreszeit', value: day.season.name, sub: day.season.indicators?.[0], args: ['nav', 'season'] });
+    cards.push({ label: compact ? 'Jahreszeit' : 'Naturjahreszeit', value: day.season.name, sub: day.season.indicators?.[0], args: ['nav', 'season'] });
   }
   const m = day.moon;
   const next = m.next_change;
@@ -145,7 +145,7 @@ export function mainScreen(day: Day, kind: ViewportKind, currentYear?: number): 
   const date = longDate(day.date, currentYear);
   const subtitle = subtitleOf(day);
   const place = day.location?.label;
-  const cards = cardGrid(mainCards(day, s), s);
+  const cards = cardGrid(mainCards(day, s, kind === 'small'), s);
 
   let root: Component;
   if (kind === 'small') {
@@ -153,7 +153,8 @@ export function mainScreen(day: Day, kind: ViewportKind, currentYear?: number): 
       [
         wheel,
         column(
-          [text(date, dim(s, s.title * 0.8), { serif: true, bold: true, maxLines: 1 }), cards, gardenStrip(day, s, true)],
+          // Short date („Mi, 14. Oktober“): the long one was cut off next to the wheel.
+          [text(screenDate(day.date), dim(s, s.title * 0.8), { serif: true, bold: true, maxLines: 1 }), cards, gardenStrip(day, s, true)],
           dim(s, s.gap * 0.8),
           { grow: 1, shrink: 1, height: '100%' },
         ),
