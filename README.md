@@ -128,6 +128,8 @@ deploys itself from that push.
 
 ## Before publishing
 
+The full step-by-step list with checkboxes: [docs/NEXT-STEPS.md](docs/NEXT-STEPS.md).
+
 - [x] Wheel-only images and gardening with the moon are live on naturgarten.bio.
 - [x] Icons (108 and 512 px, from the wheel) in `skill-package/assets/images`.
 - [ ] Terms of use: page `/nutzungsbedingungen` and the Alexa section of the privacy policy are
