@@ -124,7 +124,8 @@ function gardenStrip(day: Day, s: Sizes, compact: boolean): Component | null {
     row(
       [
         text('Gartentipp', dim(s, s.label), { bold: true, color: C.green, upper: true, maxLines: 1 }),
-        text(task.title, dim(s, compact ? s.small : s.body * 0.85), { grow: true, maxLines: compact ? 2 : 1 }),
+        // Two lines everywhere: one line cut the tip off with „…“ on the Show 15 upright.
+        text(task.title, dim(s, compact ? s.small : s.body * 0.85), { grow: true, maxLines: 2 }),
         compact ? null : text('Alle Aufgaben ›', dim(s, s.small), { bold: true, color: C.green, maxLines: 1 }),
       ],
       dim(s, s.gap),
@@ -312,6 +313,10 @@ export function moonScreen(moon: Moon, kind: ViewportKind, garden?: MoonGarden):
               text('Gärtnern mit dem Mond', dim(s, s.label), { bold: true, color: C.green, upper: true }),
               text(garden.rhythm?.text ?? (garden.speech ? clean(garden.speech) : ''), dim(s, s.body), { serif: true, bold: true }),
               ...garden.tips.slice(0, 2).map((t) => text(`• ${t.text}`, dim(s, s.small), { maxLines: 2 })),
+              // No tip today: the API's next good garden day, as the spoken answer says it.
+              !garden.tips.length && garden.next?.tips[0]
+                ? text(`Nächster guter Tag: ${screenDate(garden.next.date)} – ${garden.next.tips[0].text}`, dim(s, s.small), { maxLines: 2 })
+                : null,
               garden.note ? text(garden.note, dim(s, s.small * 0.9), { color: C.muted }) : null,
             ],
             dim(s, s.gap * 0.5),

@@ -315,6 +315,11 @@ describe('touch and events', () => {
     expect(directive(res)).toBeDefined();
   });
 
+  it('the moon screen names the next good garden day when today has no tip', async () => {
+    const res = await t.invoke(envelope(intent('MoonGardenIntent'), { apl: true, newSession: false }));
+    expect(JSON.stringify(directive(res)?.document)).toContain('Nächster guter Tag: Mo, 26. Oktober');
+  });
+
   it('help chips work like the spoken question', async () => {
     const res = await t.invoke(envelope(userEvent('nav', 'say', 'imbolc'), { apl: true, newSession: false }));
     expect(said(res)).toContain('Imbolc war dieses Jahr');

@@ -57,6 +57,7 @@ async (page) => {
     await page.waitForTimeout(WAIT);
   };
   const tapAt = async (locator) => {
+    await locator.scrollIntoViewIfNeeded().catch(() => {});
     const b = await locator.boundingBox().catch(() => null);
     if (!b) return false;
     await page.mouse.click(b.x + b.width / 2, b.y + b.height / 2);
@@ -76,12 +77,12 @@ async (page) => {
       const root = document.querySelector('.askt-renderer__container > *');
       if (!root) return ['no APL screen rendered'];
       const r = root.getBoundingClientRect();
-      const scale = r.width / root.offsetWidth || 1;
       const issues = [];
+      // Inside a ScrollView or Sequence: its content may continue below the edge on purpose.
       const scrolls = (el) => {
         for (let p = el.parentElement; p && p !== root; p = p.parentElement) {
           const s = getComputedStyle(p);
-          if (/(auto|scroll)/.test(s.overflowY + s.overflowX)) return true;
+          if (/(auto|scroll)/.test(s.overflowY + s.overflowX) || p.scrollHeight > p.clientHeight + 2) return true;
         }
         return false;
       };
@@ -92,13 +93,19 @@ async (page) => {
         if (b.width === 0 || b.height === 0) continue;
         if (b.right > r.right + 2 || b.bottom > r.bottom + 2 || b.left < r.left - 2) issues.push(`outside screen: „${text.slice(0, 40)}“`);
         if (el.scrollWidth > el.clientWidth + 2 || el.scrollHeight > el.clientHeight + 2) issues.push(`clipped: „${text.slice(0, 40)}“`);
+        // APL shortens a text over maxLines with „…“ itself; no API text ends like that.
+        if (/…$/.test(text)) issues.push(`truncated: „${text.slice(-40)}“`);
       }
-      return [...new Set(issues)].slice(0, 12).map((i) => i + (scale !== 1 ? '' : ''));
+      return [...new Set(issues)].slice(0, 12);
     });
 
-  // Fresh page, device first, then the first utterance.
+  // Fresh page, device first, then the first utterance. The window is large enough for the
+  // biggest preview (Show 15 upright), and the console's Personalization panel, which lies over
+  // the top of the display, is hidden — otherwise taps on „‹ Jahresrad“ hit the panel.
+  await page.setViewportSize({ width: 2000, height: 2300 });
   await page.goto(TEST);
   await page.waitForTimeout(5000);
+  await page.addStyleTag({ content: 'iframe { display: none !important; }' });
   const select = page.locator('.Select').filter({ has: page.locator('.Select-value-label', { hasText: /^(Hub|TV|Mobile)/ }) });
   await select.waitFor();
   if ((await select.locator('.Select-value-label').innerText()).trim() !== device.console) {
