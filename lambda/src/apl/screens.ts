@@ -53,7 +53,8 @@ function card(c: CardSpec, s: Sizes): Component {
   const inner = column(
     [
       text(c.label, dim(s, s.label), { bold: true, color: C.muted, upper: true, maxLines: 1 }),
-      text(c.value, dim(s, s.value), { serif: true, bold: true, color: c.festive ? C.brown : C.text, maxLines: 2 }),
+      // Long values („Zunehmende Sichel“) a size smaller: a word wider than the card breaks mid-word.
+      text(c.value, dim(s, c.value.length > 12 ? s.value * 0.78 : s.value), { serif: true, bold: true, color: c.festive ? C.brown : C.text, maxLines: 2 }),
       c.sub ? text(c.sub, dim(s, s.small), { color: C.muted, maxLines: 2 }) : null,
     ],
     dim(s, 0.6),
@@ -357,8 +358,11 @@ export interface TaskGroup {
   tasks: Task[];
 }
 
+/** Which list a garden screen shows; a tapped task redraws the same one. */
+export type GardenView = 'today' | 'week';
+
 export function gardenScreen(
-  opts: { title: string; subtitle?: string; groups: TaskGroup[]; moon?: MoonGarden; highlight?: string },
+  opts: { view: GardenView; title: string; subtitle?: string; groups: TaskGroup[]; moon?: MoonGarden; highlight?: string },
   kind: ViewportKind,
 ): Screen {
   const s = SIZES[kind];
@@ -413,7 +417,7 @@ export function gardenScreen(
             s,
             { pad: s.cardPad * 0.6, ...(active ? { fill: C.greenTint, border: C.green } : {}) },
           ),
-          ['nav', 'task', task.id],
+          ['nav', 'task', task.id, opts.view],
           task.title,
         ),
       );

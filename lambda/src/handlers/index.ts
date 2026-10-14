@@ -111,7 +111,7 @@ const no: RequestHandler = {
 
 // ---------- touch (APL UserEvent) ----------
 
-const TOUCH: Record<string, (hi: HandlerInput, param?: string) => Promise<Answer> | Answer> = {
+const TOUCH: Record<string, (hi: HandlerInput, param?: string, extra?: string) => Promise<Answer> | Answer> = {
   today: (hi) => todayAnswer(hi, { launch: false }),
   season: seasonAnswer,
   moon: (hi) => moonAnswer(hi),
@@ -121,18 +121,18 @@ const TOUCH: Record<string, (hi: HandlerInput, param?: string) => Promise<Answer
   daylight: daylightAnswer,
   gardenToday: gardenTodayAnswer,
   gardenWeek: (hi) => gardenWeekAnswer(hi),
-  task: (hi, id) => taskAnswer(hi, id ?? ''),
+  task: (hi, id, view) => taskAnswer(hi, id ?? '', view === 'today' ? 'today' : 'week'),
 };
 
 const touch: RequestHandler = {
   canHandle: (hi) => getRequestType(hi.requestEnvelope) === 'Alexa.Presentation.APL.UserEvent',
   handle: async (hi) => {
     const args = ((hi.requestEnvelope.request as { arguments?: unknown[] }).arguments ?? []).map(String);
-    let [, target, param] = args;
+    let [, target, param, extra] = args;
     if (target === 'say') [target, param] = [param, undefined];
     const produce = target ? TOUCH[target] : undefined;
     if (!produce) return respond(hi, { speech: '', end: true });
-    const answer = await produce(hi, param);
+    const answer = await produce(hi, param, extra);
     // A tap answers and stays quiet: no „Möchtest du noch etwas wissen?“ after every touch.
     return respond(hi, answer.ask ? answer : { ...answer, end: true });
   },

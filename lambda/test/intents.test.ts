@@ -251,9 +251,20 @@ describe('touch and events', () => {
     expect(res.response.reprompt).toBeUndefined();
   });
 
-  it('a tap on a task reads it', async () => {
-    const res = await t.invoke(envelope(userEvent('nav', 'task', 'fullAutumn-2'), { apl: true, newSession: false }));
+  it('a tap on a task reads it and keeps the list on screen, the task marked', async () => {
+    const res = await t.invoke(envelope(userEvent('nav', 'task', 'fullAutumn-2', 'week'), { apl: true, newSession: false }));
     expect(said(res)).toBe('Zwiebeln der Frühblüher setzen.');
+    // A response without a screen would end the session and blank the Echo Show.
+    expect(directive(res)?.token).toBe('gardenScreen');
+    expect(res.response.shouldEndSession).toBeUndefined();
+    const doc = JSON.stringify(directive(res)?.document);
+    expect(doc).toContain('Diese Woche');
+    expect(doc).toContain('"arguments":["nav","task","fullAutumn-2","week"]');
+  });
+
+  it('a tap on a task in today\'s list redraws today\'s list', async () => {
+    const res = await t.invoke(envelope(userEvent('nav', 'task', 'fullAutumn-1', 'today'), { apl: true, newSession: false }));
+    expect(JSON.stringify(directive(res)?.document)).toContain('"arguments":["nav","task","fullAutumn-1","today"]');
   });
 
   it('help chips work like the spoken question', async () => {

@@ -1,6 +1,6 @@
 import type { HandlerInput } from 'ask-sdk-core';
-import { gardenScreen, type TaskGroup } from '../apl/screens';
-import type { Task, Week } from '../api/types';
+import { gardenScreen, type GardenView, type Screen, type TaskGroup } from '../apl/screens';
+import type { Day, Task, Week } from '../api/types';
 import { apiFor, deps, localDate, viewportKind } from '../context';
 import type { Answer } from '../respond';
 import { screenDate, sentence, shortDate, speak, weekday } from '../speech/format';
@@ -17,10 +17,7 @@ export async function gardenTodayAnswer(hi: HandlerInput): Promise<Answer> {
   const { data: day, stale } = await api.today();
   const tasks = day.garden.tasks;
   const moon = day.garden.moon;
-  const screen = gardenScreen(
-    { title: 'Heute', subtitle: day.season?.name, groups: [{ tasks }], moon },
-    viewportKind(hi),
-  );
+  const screen = todayScreen(hi, day);
   if (!tasks.length) return { speech: speak(stale ? T.stale : '', 'Für heute habe ich keine Gartenarbeit.'), screen };
   return {
     speech: speak(
@@ -60,10 +57,7 @@ export async function gardenWeekAnswer(hi: HandlerInput, start?: string, offset 
   const from = start ?? localDate(deps.now(), api.timeZone);
   const { data: week, stale } = await api.week(from);
   const groups = weekGroups(week);
-  const screen = gardenScreen(
-    { title: 'Diese Woche', subtitle: `${screenDate(week.start)} – ${screenDate(week.end)}`, groups },
-    viewportKind(hi),
-  );
+  const screen = weekScreen(hi, week);
   const all = groups.flatMap((g) => g.tasks.map((t) => ({ t, group: g })));
   if (!all.length) return { speech: speak(stale ? T.stale : '', 'Für diese Woche habe ich keine Gartenarbeiten.'), screen };
 
@@ -84,10 +78,28 @@ export async function gardenWeekAnswer(hi: HandlerInput, start?: string, offset 
 }
 
 
-/** Tap on a task in a list: read its speech. */
-export async function taskAnswer(hi: HandlerInput, taskId: string): Promise<Answer> {
+/**
+ * Tap on a task in a list: read its speech and redraw the same list with the task marked. Without
+ * a screen the response would end the session and the Echo Show would drop to a blank page.
+ */
+export async function taskAnswer(hi: HandlerInput, taskId: string, view: GardenView = 'week'): Promise<Answer> {
   const api = await apiFor(hi);
   const [{ data: day }, { data: week }] = await Promise.all([api.today(), api.week(localDate(deps.now(), api.timeZone))]);
   const task = [...day.garden.tasks, ...week.garden.tasks].find((t) => t.id === taskId);
-  return { speech: task ? said(task) : 'Diese Aufgabe finde ich gerade nicht.', end: true };
+  const screen = view === 'today' ? todayScreen(hi, day, taskId) : weekScreen(hi, week, taskId);
+  return { speech: task ? said(task) : 'Diese Aufgabe finde ich gerade nicht.', screen };
+}
+
+function todayScreen(hi: HandlerInput, day: Day, highlight?: string): Screen {
+  return gardenScreen(
+    { view: 'today', title: 'Heute', subtitle: day.season?.name, groups: [{ tasks: day.garden.tasks }], moon: day.garden.moon, highlight },
+    viewportKind(hi),
+  );
+}
+
+function weekScreen(hi: HandlerInput, week: Week, highlight?: string): Screen {
+  return gardenScreen(
+    { view: 'week', title: 'Diese Woche', subtitle: `${screenDate(week.start)} – ${screenDate(week.end)}`, groups: weekGroups(week), highlight },
+    viewportKind(hi),
+  );
 }
