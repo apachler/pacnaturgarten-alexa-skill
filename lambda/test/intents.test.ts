@@ -198,9 +198,17 @@ describe('built-in intents', () => {
     expect(said(two)).toContain(T.help);
   });
 
-  it('yes and no without a question count as not understood', async () => {
-    expect(said(await t.invoke(envelope(intent('AMAZON.YesIntent'), { newSession: false })))).toBe(T.fallback);
-    expect(said(await t.invoke(envelope(intent('AMAZON.NoIntent'), { newSession: false })))).toBe(T.fallback);
+  it('yes without a question is taken kindly and asks what next', async () => {
+    const res = await t.invoke(envelope(intent('AMAZON.YesIntent'), { newSession: false }));
+    expect(said(res)).toBe(`${T.gladly} ${T.whatThen}`);
+    expect(res.response.shouldEndSession).toBe(false);
+    expect(res.response.reprompt).toBeDefined();
+  });
+
+  it('no without a question ends kindly', async () => {
+    const res = await t.invoke(envelope(intent('AMAZON.NoIntent'), { newSession: false }));
+    expect(said(res)).toBe(`${T.okay} ${T.goodbye}`);
+    expect(res.response.shouldEndSession).toBe(true);
   });
 
   it('no after a question ends kindly', async () => {
