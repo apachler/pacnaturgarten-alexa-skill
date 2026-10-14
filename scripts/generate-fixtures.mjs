@@ -18,8 +18,16 @@ const today = '2026-10-14';
 const failingStore = { get: async () => { throw new Error('offline'); }, set: async () => {}, getWithMetadata: async () => { throw new Error('offline'); } };
 const seasons = await seasonsAt(place, { today, weatherStore: failingStore });
 const ctx = { items, place, seasons, tz, today };
-const make = (date, f, w, h) => ({ url: `https://naturgarten.bio/jahresrad/bild/v/${date}/46.5_14.5/${f}.png`, width: w, height: h });
-const image = (date) => ({ ...make(date, '1920x1080', 1920, 1080), generated_at: `${date}T00:00:00.000Z`, timezone: tz,
+// Mirrors imageFor() in netlify/functions/api.mjs (not exported): dated `v2` URL per 0.5° cell,
+// rendered in the place's zone, so `generated_at` is midnight there and `timezone` that zone.
+const make = (date, f, w, h) => ({ url: `https://naturgarten.bio/jahresrad/bild/v2/${date}/46.5,14.5/${f}.png`, width: w, height: h });
+const midnight = (date, zone) => {
+  const utc = Date.parse(`${date}T00:00:00Z`);
+  const offset = new Intl.DateTimeFormat('en-US', { timeZone: zone, timeZoneName: 'longOffset' }).format(utc).match(/GMT([+-]\d{2}):(\d{2})/);
+  const minutes = offset ? Number(offset[1]) * 60 + Math.sign(Number(offset[1])) * Number(offset[2]) : 0;
+  return new Date(utc - minutes * 60_000).toISOString();
+};
+const image = (date) => ({ ...make(date, '1920x1080', 1920, 1080), generated_at: midnight(date, tz), timezone: tz,
   variants: [make(date, '1920x1080', 1920, 1080), make(date, '1200x1200', 1200, 1200), make(date, '1080x1920', 1080, 1920), make(date, 'rad-1080x1080', 1080, 1080), make(date, 'rad-600x600', 600, 600)] });
 const env = (data) => JSON.stringify({ data, meta: { api_version: 'v1', generated_at: '2026-10-14T05:00:00.000Z' } }, null, 2) + '\n';
 const w = (name, data) => writeFileSync(`${out}/${name}.json`, env(data));

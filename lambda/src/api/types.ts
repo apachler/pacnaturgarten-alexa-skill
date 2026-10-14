@@ -20,6 +20,8 @@ export interface Location {
   label: string;
   lat: number;
   lon: number;
+  /** The place's own zone; clock times (sunrise, sunset) are given in it. */
+  timezone?: string;
 }
 
 export interface Festival {
