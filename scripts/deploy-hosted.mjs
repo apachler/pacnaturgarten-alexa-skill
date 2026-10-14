@@ -89,8 +89,16 @@ try {
   const { uploadUrl } = ask('create-upload-url');
   const put = await fetch(uploadUrl, { method: 'PUT', body: readFileSync(zipFile) });
   if (!put.ok) fail(`upload of skill-package failed: HTTP ${put.status}`);
-  const res = ask('import-skill-package', '-s', skillId, '--location', uploadUrl, '--full-response');
-  const location = (res.headers ?? []).find((h) => h.key?.toLowerCase() === 'location')?.value ?? '';
+  let res;
+  try {
+    res = ask('import-skill-package', '-s', skillId, '--location', uploadUrl, '--full-response');
+  } catch (err) {
+    // 409: an earlier import is still running (they take a few minutes). Code is already pushed.
+    if (/status code 409/.test(String(err.stderr))) fail('Another skill-package import is still running. Wait a few minutes, then run this again.');
+    throw err;
+  }
+  // --full-response gives the headers as an object ({ location: '/v1/skills/imports/<id>' }).
+  const location = String(res.headers?.location ?? '');
   const importId = location.split('/').pop();
   if (!importId) fail(`import started without an import id: ${JSON.stringify(res)}`);
   const imported = await poll('skill-package import', () => ask('get-import-status', '--import-id', importId), (s) => s.status);
@@ -101,24 +109,22 @@ try {
 
 // ---------- 5. wait for the Lambda ----------
 
-// Amazon sometimes reports FAILED for a moment and then SUCCEEDED for the same commit after a retry,
-// so a FAILED is only final once it has stayed so for a while.
-let failedSince = 0;
+// SMAPI's status for hosted deployments is not reliable: twice it reported FAILED for a commit whose
+// code was demonstrably live (new answers in the simulator), while the console showed success. So a
+// FAILED here is a warning to check, not a verdict.
 const deployed = await poll(
   `Lambda deployment of ${commit.slice(0, 7)}`,
   () => ask('get-skill-status', '-s', skillId).hostedSkillDeployment?.lastUpdateRequest ?? {},
-  (s) => {
-    if (s.deploymentDetails?.commitId !== commit) return 'IN_PROGRESS';
-    if (s.status !== 'FAILED') return s.status;
-    failedSince ||= Date.now();
-    return Date.now() - failedSince > 90_000 ? 'FAILED' : 'IN_PROGRESS';
-  },
+  (s) => (s.deploymentDetails?.commitId === commit ? s.status : 'IN_PROGRESS'),
 );
 if (deployed.status !== 'SUCCEEDED') {
-  fail(`Lambda deployment ${deployed.status}. Details: developer console → Code → Deploy, or CloudWatch Logs.`);
+  console.warn(
+    `\nSMAPI reports the Lambda deployment as ${deployed.status}. That has been wrong before: check the developer\n` +
+      'console (Code → Deploy) and ask the simulator something only the new code answers before you trust it.',
+  );
 }
 
-console.log(`\nDeployed ${source} to the development stage of ${skillId}.`);
+console.log(`\n${deployed.status === 'SUCCEEDED' ? 'Deployed' : 'Pushed and imported'} ${source} to the development stage of ${skillId}.`);
 console.log('Test: developer console → Test, or „Alexa, öffne Jahresrad“ on a device signed in with the developer account.');
 
 // ---------- helpers ----------
