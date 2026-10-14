@@ -7,7 +7,8 @@
       "type": "default",
       "label": "Klagenfurt",
       "lat": 46.6,
-      "lon": 14.3
+      "lon": 14.3,
+      "timezone": "Europe/Vienna"
     },
     "season": {
       "id": "fullAutumn",
@@ -141,34 +142,34 @@
       }
     },
     "image": {
-      "url": "https://naturgarten.bio/jahresrad/bild/v/2026-10-14/46.5_14.5/1920x1080.png",
+      "url": "https://naturgarten.bio/jahresrad/bild/v2/2026-10-14/46.5,14.5/1920x1080.png",
       "width": 1920,
       "height": 1080,
-      "generated_at": "2026-10-14T00:00:00.000Z",
+      "generated_at": "2026-10-13T22:00:00.000Z",
       "timezone": "Europe/Vienna",
       "variants": [
         {
-          "url": "https://naturgarten.bio/jahresrad/bild/v/2026-10-14/46.5_14.5/1920x1080.png",
+          "url": "https://naturgarten.bio/jahresrad/bild/v2/2026-10-14/46.5,14.5/1920x1080.png",
           "width": 1920,
           "height": 1080
         },
         {
-          "url": "https://naturgarten.bio/jahresrad/bild/v/2026-10-14/46.5_14.5/1200x1200.png",
+          "url": "https://naturgarten.bio/jahresrad/bild/v2/2026-10-14/46.5,14.5/1200x1200.png",
           "width": 1200,
           "height": 1200
         },
         {
-          "url": "https://naturgarten.bio/jahresrad/bild/v/2026-10-14/46.5_14.5/1080x1920.png",
+          "url": "https://naturgarten.bio/jahresrad/bild/v2/2026-10-14/46.5,14.5/1080x1920.png",
           "width": 1080,
           "height": 1920
         },
         {
-          "url": "https://naturgarten.bio/jahresrad/bild/v/2026-10-14/46.5_14.5/rad-1080x1080.png",
+          "url": "https://naturgarten.bio/jahresrad/bild/v2/2026-10-14/46.5,14.5/rad-1080x1080.png",
           "width": 1080,
           "height": 1080
         },
         {
-          "url": "https://naturgarten.bio/jahresrad/bild/v/2026-10-14/46.5_14.5/rad-600x600.png",
+          "url": "https://naturgarten.bio/jahresrad/bild/v2/2026-10-14/46.5,14.5/rad-600x600.png",
           "width": 600,
           "height": 600
         }
