@@ -115,9 +115,23 @@ describe('moon', () => {
     expect(said(neu)).toBe('Der nächste Schwarzmond, also Neumond, ist am Montag, 9. November.');
   });
 
-  it('gardening with the moon: rhythm, and when the path turns', async () => {
+  it('gardening with the moon: no tip today, the next good day, and when the path turns', async () => {
     const res = await t.invoke(envelope(intent('MoonGardenIntent')));
-    expect(said(res)).toBe('Der Mond nimmt zu und sinkt. Ab Freitag steigt der Mond.');
+    expect(said(res)).toBe(
+      'Der Mond nimmt zu und sinkt. Heute ist kein besonderer Gartentag nach dem Mond. ' +
+        'Der nächste ist am Montag, 26. Oktober: nach alter Gartenregel gut für die Vorratsernte. Ab diesem Freitag steigt der Mond.',
+    );
+  });
+
+  it.each([
+    ['2026-10-15', 'Ab morgen steigt der Mond.'],
+    ['2026-10-21', 'Ab nächstem Mittwoch steigt der Mond.'],
+    ['2026-10-22', ''],
+  ])('gardening with the moon: a path turn on %s is said as „%s“', async (date, turnSaid) => {
+    const today = fixture<{ moon: { next_path_change: object } }>('today');
+    t.api.data.set('today', { ...today, moon: { ...today.moon, next_path_change: { ...today.moon.next_path_change, date } } });
+    const res = await t.invoke(envelope(intent('MoonGardenIntent')));
+    expect(said(res).endsWith('Vorratsernte.' + (turnSaid && ` ${turnSaid}`))).toBe(true);
   });
 
   it('gardening with the moon: tips come with the note that it is old wisdom', async () => {

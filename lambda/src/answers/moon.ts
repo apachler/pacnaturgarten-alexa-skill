@@ -65,10 +65,14 @@ export async function moonGardenAnswer(hi: HandlerInput): Promise<Answer> {
   const screen = moonScreen(day.moon, viewportKind(hi), g);
   if (!g) return { speech: speak(stale ? T.stale : '', 'Dazu habe ich heute keinen Hinweis.'), screen };
   const turn = day.moon.next_path_change;
-  const turnSaid =
-    turn?.date && daysBetween(day.date, turn.date) <= 7
-      ? `Ab ${weekday(turn.date)} ${turn.turn === 'lowest' ? 'steigt' : 'sinkt'} der Mond.`
-      : '';
+  // „Ab diesem Freitag“, not „Ab Freitag“: the API's speech may just have named a later Friday as
+  // the next good garden day („Der nächste ist am Freitag, 30. Oktober …“).
+  let turnSaid = '';
+  if (turn?.date) {
+    const days = daysBetween(day.date, turn.date);
+    const from = days === 1 ? 'morgen' : `${days === 7 ? 'nächstem' : 'diesem'} ${weekday(turn.date)}`;
+    if (days >= 1 && days <= 7) turnSaid = `Ab ${from} ${turn.turn === 'lowest' ? 'steigt' : 'sinkt'} der Mond.`;
+  }
   return {
     speech: speak(stale ? T.stale : '', sentence(g.speech ?? g.rhythm?.text), turnSaid, g.tips.length ? clean(g.note) || T.moonNote : ''),
     screen,
