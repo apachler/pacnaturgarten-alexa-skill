@@ -6,7 +6,7 @@
         "de-DE": {
           "name": "Jahresrad",
           "summary": "Das Jahresrad von naturgarten.bio: Naturjahreszeit, Mond, Jahreskreisfeste, Tageslicht und Gartentipps für jeden Tag.",
-          "description": "Das Jahresrad von naturgarten.bio begleitet dich durch das Gartenjahr. Jeden Tag erfährst du, in welcher Naturjahreszeit wir stehen, wie der Mond steht, wann das nächste der acht Jahreskreisfeste ist, wie lange es hell ist und was im Garten zu tun ist. Auf dem Echo Show siehst du das Jahresrad mit allen Angaben auf einen Blick.\n\nFrag zum Beispiel: Wann ist das nächste Fest? Wie steht der Mond? Was sagt der Mond zum Garten? Was ist heute im Garten zu tun? Wie sieht es am 21. Dezember aus?\n\nDer Skill ist für Gefährten von naturgarten.bio: Verbinde ihn in der Alexa-App mit deinem Gefährten-Konto. Für genauere Sonnenzeiten und Jahreszeiten trag in deinem Profil auf naturgarten.bio deinen Garten ein.",
+          "description": "Das Jahresrad von naturgarten.bio begleitet dich durch das Gartenjahr. Jeden Tag erfährst du, in welcher Naturjahreszeit wir stehen, wie der Mond steht, wann das nächste der acht Jahreskreisfeste ist, wie lange es hell ist und was im Garten zu tun ist. Auf dem Echo Show siehst du das Jahresrad mit allen Angaben auf einen Blick.\n\nFrag zum Beispiel: Wann ist das nächste Fest? Wie steht der Mond? Was sagt der Mond zum Garten? Was ist heute im Garten zu tun? Wie sieht es am 21. Dezember aus?\n\nDer Skill ist für Gefährten von naturgarten.bio. Leg dir unter naturgarten.bio/netzwerk ein Konto an; sobald wir dich als Gefährten freigeschaltet haben, verbindest du den Skill in der Alexa-App mit deinem Konto. Für genauere Sonnenzeiten und Jahreszeiten trag in deinem Profil auf naturgarten.bio deinen Garten ein.",
           "examplePhrases": [
             "Alexa, öffne Jahresrad",
             "Alexa, frag Jahresrad, wann das nächste Fest ist",
@@ -36,7 +36,7 @@
       ],
       "distributionMode": "PUBLIC",
       "category": "EDUCATION_AND_REFERENCE",
-      "testingInstructions": "Der Skill braucht die Kontoverknüpfung mit einem freigeschalteten Gefährten-Konto auf naturgarten.bio. Testkonto: siehe die Angaben, die der Herausgeber im Zertifizierungsantrag hinterlegt. Ohne Verknüpfung antwortet jeder Aufruf mit einer LinkAccount-Karte. Ein Konto ohne Gefährten-Zugang erhält einen Hinweis und eine einfache Karte."
+      "testingInstructions": "This skill requires account linking with an approved \"Gefährte\" account on naturgarten.bio; the test credentials are in the certification form. 1) Enable the skill and sign in on naturgarten.bio, then tap „Erlauben“. 2) „Alexa, öffne Jahresrad“ gives the daily briefing and asks a follow-up question. 3) Try „Wann ist das nächste Fest?“ (answer „ja“ for customs), „Wie steht der Mond?“, „Was sagt der Mond zum Garten?“, „Was ist heute im Garten zu tun?“, „Wie sieht es am 21. Dezember aus?“. On Echo Show devices the cards and help chips are tappable; every feature also works by voice alone. Without account linking, every request answers with a LinkAccount card; an account without Gefährte access gets a short explanation and a simple card. The test account has a garden place set, so the skill gives no location hint. The skill requests no device address or other permissions; it uses the place stored in the user's naturgarten.bio profile."
     },
     "privacyAndCompliance": {
       "allowsPurchases": false,
