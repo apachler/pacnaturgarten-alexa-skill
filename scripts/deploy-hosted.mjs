@@ -5,7 +5,8 @@
 // 1. checks both repositories (this one clean, the hosted one on master and in sync with origin),
 // 2. stages the build (scripts/stage-hosted.mjs), shows what changed and asks before going on,
 // 3. commits and pushes master: Amazon builds the Lambda from that push,
-// 4. imports skill-package (manifest, interaction model, icons) through SMAPI: the hosted repo
+// 4. imports skill-package (manifest, interaction model, icons) through SMAPI — keeping the
+//    testing instructions from the console when they add to the repo's (reviewers' credentials); the hosted repo
 //    ignores skill.json, and the push alone does not update the manifest or the model,
 // 5. waits for the import and the Lambda deployment and prints the result.
 //
@@ -14,7 +15,7 @@
 // checkout's .ask/ask-states.json. Live (the prod branch) is never touched: Amazon fills it on
 // certification.
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { createInterface } from 'node:readline/promises';
@@ -82,6 +83,33 @@ if (changes) {
 // ---------- 4. import skill-package ----------
 
 const ask = (...argv) => JSON.parse(sh('ask', ['smapi', ...argv], { stdio: ['ignore', 'pipe', 'pipe'] }) || '{}');
+
+// The reviewers' credentials for account linking are added to the testing instructions in the
+// console (Distribution → Privacy & Compliance), never in the repo. The import would replace them
+// with the repo's text, so keep the console's text when it still contains the repo's text (i.e.
+// only adds to it). Its content is never printed: it holds a password.
+const manifestFile = join(dest, 'skill-package', 'skill.json');
+const local = JSON.parse(readFileSync(manifestFile, 'utf8'));
+const repoInstructions = local.manifest?.publishingInformation?.testingInstructions ?? '';
+let consoleInstructions = '';
+try {
+  consoleInstructions = ask('get-skill-manifest', '-s', skillId, '-g', 'development').manifest?.publishingInformation?.testingInstructions ?? '';
+} catch {
+  console.warn('Could not read the testing instructions from the console; the repo version is imported.');
+}
+if (consoleInstructions && consoleInstructions !== repoInstructions) {
+  if (consoleInstructions.includes(repoInstructions)) {
+    local.manifest.publishingInformation.testingInstructions = consoleInstructions;
+    writeFileSync(manifestFile, JSON.stringify(local, null, 2) + '\n');
+    console.log('testing instructions: kept the console version (it adds to the repo text, e.g. the reviewers\' credentials)');
+  } else {
+    console.warn(
+      'testing instructions: the console version differs from the repo text and is REPLACED by it.\n' +
+        'If it held the reviewers\' credentials, add them again in Distribution → Privacy & Compliance before submitting.',
+    );
+  }
+}
+
 const work = mkdtempSync(join(tmpdir(), 'jahresrad-'));
 try {
   const zipFile = join(work, 'skill-package.zip');
