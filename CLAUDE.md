@@ -22,6 +22,10 @@ npm run deploy:hosted -- ../jahresrad-hosted     # stage, push master, import sk
 npm run stage:hosted -- <hosted skill checkout>   # only copy a build into the Alexa-hosted repo
 ```
 
+Screens on real Echo Show sizes: skill **`screen-check`** (`.claude/skills/screen-check`) drives
+the developer console simulator with Playwright on Show 5, 8, 10, 15/21 and 15 upright — run it
+after any change to screens, sizes or touch handling.
+
 Layout: `lambda/src/api` (client, cache, errors, types), `answers/` (one module per topic),
 `handlers/` (intents, built-ins, touch, events, errors), `apl/` (ui blocks, screens),
 `speech/` (formatting, fixed texts), `respond.ts` (session and screen policy), `context.ts`
@@ -87,8 +91,10 @@ Light naturgarten.bio look: background `#FAFAFA`, white cards with `#E6E1D8` bor
 festival card `#F6EFE3` (tokens in `lambda/src/apl/ui.ts`). APL cannot load web fonts:
 Bookerly stands in for Cormorant Garamond, Amazon Ember Display for Open Sans. Screens: main
 (wheel plus 4 cards and garden tip), festival detail, moon, garden tasks, help, error.
-Viewports: Echo Show 5 (960×480, `small`), 8/10 and 15/21 (`landscape`, sizes in vh) and
-Show 15 upright (`portrait`, sizes in vw). Every new screen or component must pass the APL
+Viewports: Echo Show 5 (960×480, `small`), 8 (960×600 dp, reports 1280×800 px), 10 and 15/21
+(`landscape`, sizes in vh) and Show 15 upright (`portrait`, sizes in vw); all four are declared in
+`skill.json` → `supportedViewports`. Every tap answers with a screen (a tap answer without one ends
+the session and blanks the Echo Show). Every new screen or component must pass the APL
 schema test (`lambda/test/apl.test.ts`) on all three.
 
 ## Commits
