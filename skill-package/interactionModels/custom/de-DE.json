@@ -22,7 +22,9 @@
             "was es heute gibt",
             "wie das jahresrad steht",
             "was heute los ist",
-            "wo wir im jahr stehen"
+            "wo wir im jahr stehen",
+            "erzähl mir was heute los ist",
+            "erzähl mir was es heute gibt"
           ]
         },
         {
@@ -96,7 +98,11 @@
             "wie der mond steht",
             "welche mondphase wir haben",
             "wann {moonEvent} ist",
-            "wann der nächste {moonEvent} ist"
+            "wann der nächste {moonEvent} ist",
+            "erzähl mir vom mond",
+            "erzähl mir etwas über den mond",
+            "erzähl mir was über den mond",
+            "erzähl mir mehr über den mond"
           ]
         },
         {
@@ -114,7 +120,10 @@
             "ist der mond aufsteigend oder absteigend",
             "gärtnern nach dem mond",
             "was der mond zum garten sagt",
-            "ob heute ein guter tag zum säen ist"
+            "ob heute ein guter tag zum säen ist",
+            "erzähl mir vom mondgarten",
+            "erzähl mir etwas über den mondkalender",
+            "erzähl mir was der mond zum garten sagt"
           ]
         },
         {
@@ -135,7 +144,12 @@
             "wann die sonne aufgeht",
             "wann die sonne untergeht",
             "wie lange es heute hell ist",
-            "ob die tage länger werden"
+            "ob die tage länger werden",
+            "erzähl mir von der sonne",
+            "erzähl mir etwas über die sonne",
+            "erzähl mir was über die sonne",
+            "die sonne",
+            "über die sonne"
           ]
         },
         {
@@ -150,7 +164,11 @@
             "gartenarbeit für heute",
             "was steht heute im garten an",
             "was heute im garten zu tun ist",
-            "was ich im garten machen soll"
+            "was ich im garten machen soll",
+            "erzähl mir vom garten",
+            "erzähl mir etwas über den garten",
+            "erzähl mir was über den garten",
+            "erzähl mir was im garten zu tun ist"
           ]
         },
         {
@@ -166,7 +184,11 @@
             "gartenarbeiten für diese woche",
             "gartenplan der woche",
             "was diese woche im garten ansteht",
-            "was diese woche im garten zu tun ist"
+            "was diese woche im garten zu tun ist",
+            "erzähl mir von den gartenarbeiten",
+            "erzähl mir von den gartenarbeiten der woche",
+            "mehr über die gartenarbeiten",
+            "über die gartenarbeiten der woche"
           ]
         },
         {
@@ -182,7 +204,11 @@
             "was ist vollherbst",
             "welche phänologische jahreszeit haben wir",
             "welche jahreszeit wir haben",
-            "welche naturjahreszeit gerade ist"
+            "welche naturjahreszeit gerade ist",
+            "erzähl mir von der jahreszeit",
+            "erzähl mir etwas über die jahreszeit",
+            "erzähl mir was über die jahreszeit",
+            "erzähl mir von der naturjahreszeit"
           ]
         },
         {
@@ -198,8 +224,6 @@
             "was ist am {date}",
             "was ist am {date} los",
             "wie steht das jahresrad am {date}",
-            "erzähl mir vom {date}",
-            "was bringt der {date}",
             "wie ist es am {date}",
             "wie es am {date} aussieht",
             "was am {date} ist"
