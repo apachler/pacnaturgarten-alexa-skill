@@ -1,0 +1,54 @@
+{
+  "manifest": {
+    "manifestVersion": "1.0",
+    "publishingInformation": {
+      "locales": {
+        "de-DE": {
+          "name": "Jahresrad",
+          "summary": "Das Jahresrad von naturgarten.bio: Naturjahreszeit, Mond, Jahreskreisfeste, Tageslicht und Gartentipps für jeden Tag.",
+          "description": "Das Jahresrad von naturgarten.bio begleitet dich durch das Gartenjahr. Jeden Tag erfährst du, in welcher Naturjahreszeit wir stehen, wie der Mond steht, wann das nächste der acht Jahreskreisfeste ist, wie lange es hell ist und was im Garten zu tun ist. Auf dem Echo Show siehst du das Jahresrad mit allen Angaben auf einen Blick.\n\nFrag zum Beispiel: Wann ist das nächste Fest? Wie steht der Mond? Was sagt der Mond zum Garten? Was ist heute im Garten zu tun? Wie sieht es am 21. Dezember aus?\n\nDer Skill ist für Gefährten von naturgarten.bio: Verbinde ihn in der Alexa-App mit deinem Gefährten-Konto. Für genauere Sonnenzeiten und Jahreszeiten trag in deinem Profil auf naturgarten.bio deinen Garten ein.",
+          "examplePhrases": [
+            "Alexa, öffne Jahresrad",
+            "Alexa, frag Jahresrad, wann das nächste Fest ist",
+            "Alexa, frag Jahresrad, wie der Mond steht"
+          ],
+          "keywords": ["Jahresrad", "Jahreskreis", "Garten", "Naturgarten", "Mond", "Mondphase", "Samhain", "Kelten", "Gartentipps", "Naturjahreszeit"]
+        }
+      },
+      "isAvailableWorldwide": false,
+      "distributionCountries": ["DE", "AT", "CH"],
+      "distributionMode": "PUBLIC",
+      "category": "EDUCATION_AND_REFERENCE",
+      "testingInstructions": "Der Skill braucht die Kontoverknüpfung mit einem freigeschalteten Gefährten-Konto auf naturgarten.bio. Testkonto: siehe die Angaben, die der Herausgeber im Zertifizierungsantrag hinterlegt. Ohne Verknüpfung antwortet jeder Aufruf mit einer LinkAccount-Karte. Ein Konto ohne Gefährten-Zugang erhält einen Hinweis und eine einfache Karte."
+    },
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "usesPersonalInfo": true,
+      "isChildDirected": false,
+      "isExportCompliant": true,
+      "containsAds": false,
+      "locales": {
+        "de-DE": {
+          "privacyPolicyUrl": "https://naturgarten.bio/privacy"
+        }
+      }
+    },
+    "apis": {
+      "custom": {
+        "interfaces": [
+          {
+            "type": "ALEXA_PRESENTATION_APL",
+            "supportedViewports": [
+              { "mode": "HUB", "shape": "RECTANGLE", "minWidth": 960, "maxWidth": 1279, "minHeight": 480, "maxHeight": 599 },
+              { "mode": "HUB", "shape": "RECTANGLE", "minWidth": 1280, "maxWidth": 1920, "minHeight": 600, "maxHeight": 1279 },
+              { "mode": "HUB", "shape": "RECTANGLE", "minWidth": 1080, "maxWidth": 1279, "minHeight": 1280, "maxHeight": 1920 }
+            ]
+          }
+        ]
+      }
+    },
+    "events": {
+      "subscriptions": [{ "eventName": "SKILL_DISABLED" }]
+    }
+  }
+}

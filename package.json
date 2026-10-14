@@ -1,0 +1,30 @@
+{
+  "name": "pacnaturgarten-alexa-skill",
+  "private": true,
+  "license": "GPL-3.0-only",
+  "description": "Alexa-Skill „Jahresrad“ für naturgarten.bio",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "esbuild lambda/src/index.ts --bundle --platform=node --target=node16 --format=cjs --outfile=lambda/index.js --legal-comments=none",
+    "check": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "validate:model": "node scripts/validate-model.mjs",
+    "verify": "npm run check && npm run validate:model && npm run test:run && npm run build",
+    "stage:hosted": "npm run build && node scripts/stage-hosted.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1151.0",
+    "ask-sdk-core": "^2.14.0",
+    "ask-sdk-model": "^1.86.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "apl-suggester": "^2024.2.0",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.4"
+  }
+}

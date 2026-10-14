@@ -1,0 +1,180 @@
+{
+  "data": {
+    "start": "2026-10-14",
+    "end": "2026-10-20",
+    "timezone": "Europe/Vienna",
+    "location": {
+      "type": "default",
+      "label": "Klagenfurt",
+      "lat": 46.6,
+      "lon": 14.3
+    },
+    "days": [
+      {
+        "date": "2026-10-14",
+        "weekday": "Mittwoch",
+        "festival": null,
+        "period": null,
+        "season": {
+          "id": "fullAutumn",
+          "name": "Vollherbst",
+          "starts_today": false
+        },
+        "moon_change": null,
+        "moon_path_change": null,
+        "daylight": {
+          "sunrise": "07:19",
+          "sunset": "18:18",
+          "day_length_min": 659,
+          "change_vs_yesterday_min": -4
+        }
+      },
+      {
+        "date": "2026-10-15",
+        "weekday": "Donnerstag",
+        "festival": null,
+        "period": null,
+        "season": {
+          "id": "fullAutumn",
+          "name": "Vollherbst",
+          "starts_today": false
+        },
+        "moon_change": null,
+        "moon_path_change": null,
+        "daylight": {
+          "sunrise": "07:20",
+          "sunset": "18:16",
+          "day_length_min": 656,
+          "change_vs_yesterday_min": -3
+        }
+      },
+      {
+        "date": "2026-10-16",
+        "weekday": "Freitag",
+        "festival": null,
+        "period": null,
+        "season": {
+          "id": "fullAutumn",
+          "name": "Vollherbst",
+          "starts_today": false
+        },
+        "moon_change": null,
+        "moon_path_change": {
+          "turn": "lowest",
+          "name": "Tiefster Mondstand, ab jetzt steigt der Mond"
+        },
+        "daylight": {
+          "sunrise": "07:21",
+          "sunset": "18:14",
+          "day_length_min": 653,
+          "change_vs_yesterday_min": -3
+        }
+      },
+      {
+        "date": "2026-10-17",
+        "weekday": "Samstag",
+        "festival": null,
+        "period": null,
+        "season": {
+          "id": "fullAutumn",
+          "name": "Vollherbst",
+          "starts_today": false
+        },
+        "moon_change": null,
+        "moon_path_change": null,
+        "daylight": {
+          "sunrise": "07:23",
+          "sunset": "18:12",
+          "day_length_min": 650,
+          "change_vs_yesterday_min": -3
+        }
+      },
+      {
+        "date": "2026-10-18",
+        "weekday": "Sonntag",
+        "festival": null,
+        "period": null,
+        "season": {
+          "id": "fullAutumn",
+          "name": "Vollherbst",
+          "starts_today": false
+        },
+        "moon_change": {
+          "phase": "first_quarter",
+          "name": "Erstes Viertel"
+        },
+        "moon_path_change": null,
+        "daylight": {
+          "sunrise": "07:24",
+          "sunset": "18:11",
+          "day_length_min": 646,
+          "change_vs_yesterday_min": -4
+        }
+      },
+      {
+        "date": "2026-10-19",
+        "weekday": "Montag",
+        "festival": null,
+        "period": null,
+        "season": {
+          "id": "fullAutumn",
+          "name": "Vollherbst",
+          "starts_today": false
+        },
+        "moon_change": null,
+        "moon_path_change": null,
+        "daylight": {
+          "sunrise": "07:26",
+          "sunset": "18:09",
+          "day_length_min": 643,
+          "change_vs_yesterday_min": -3
+        }
+      },
+      {
+        "date": "2026-10-20",
+        "weekday": "Dienstag",
+        "festival": null,
+        "period": null,
+        "season": {
+          "id": "fullAutumn",
+          "name": "Vollherbst",
+          "starts_today": false
+        },
+        "moon_change": null,
+        "moon_path_change": null,
+        "daylight": {
+          "sunrise": "07:27",
+          "sunset": "18:07",
+          "day_length_min": 640,
+          "change_vs_yesterday_min": -3
+        }
+      }
+    ],
+    "garden": {
+      "tasks": [
+        {
+          "id": "fullAutumn-1",
+          "title": "Gehölze und Stauden pflanzen, der Boden ist noch warm",
+          "speech": "Gehölze und Stauden pflanzen, der Boden ist noch warm."
+        },
+        {
+          "id": "fullAutumn-2",
+          "title": "Zwiebeln der Frühblüher setzen",
+          "speech": "Zwiebeln der Frühblüher setzen."
+        },
+        {
+          "id": "fullAutumn-3",
+          "title": "Mulchschicht erneuern",
+          "speech": "Mulchschicht erneuern."
+        }
+      ]
+    },
+    "summary": {
+      "speech": "Die Woche ab Mittwoch, 14. Oktober. Mond: am Sonntag Erstes Viertel. Ab Freitag steigt der Mond. Im Garten: Gehölze und Stauden pflanzen, der Boden ist noch warm; Zwiebeln der Frühblüher setzen."
+    }
+  },
+  "meta": {
+    "api_version": "v1",
+    "generated_at": "2026-10-14T05:00:00.000Z"
+  }
+}

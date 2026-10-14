@@ -1,0 +1,146 @@
+{
+  "data": {
+    "date": "2026-05-20",
+    "weekday": "Mittwoch",
+    "timezone": "Europe/Vienna",
+    "location": {
+      "type": "default",
+      "label": "Klagenfurt",
+      "lat": 46.6,
+      "lon": 14.3
+    },
+    "season": {
+      "id": "earlySummer",
+      "name": "Frühsommer",
+      "since": "2026-05-16",
+      "indicators": [
+        "Schwarzer Holunder blüht",
+        "Robinie blüht"
+      ],
+      "source": "hopkins",
+      "next": {
+        "id": "highSummer",
+        "name": "Hochsommer",
+        "date": "2026-06-07"
+      }
+    },
+    "festival": {
+      "today": null,
+      "eve": null,
+      "next": {
+        "id": "litha",
+        "name": "Litha",
+        "date": "2026-06-21",
+        "rule": "Sommersonnenwende",
+        "short": "Der Höhepunkt der Sonnenkraft",
+        "epithet": "Sommerfest",
+        "customs": "Die Knospe ist erblüht und befruchtet. Der Same für das Kommende ist gelegt. Bald werden die Blätter fallen.\nEs ist der hellste Tag des Jahres. Der Spiegel zur Wintersonnenwende. Alles ist lebendig und voller Kraft.\nFür viele Kräuter ist jetzt Erntezeit! Es wird der Kräuterbuschen (7, 9, 77 oder 99 Kräuter) gebunden.",
+        "impulses": [
+          "Bin ich dieses Jahr erblüht?",
+          "Kann in mir und durch mich Frucht reifen?",
+          "Was ist in mir erblüht?"
+        ],
+        "days_until": 32
+      }
+    },
+    "period": null,
+    "moon": {
+      "phase": "waxing_crescent",
+      "name": "Zunehmende Sichel",
+      "illumination": 0.18,
+      "phase_angle": 50.5,
+      "waxing": true,
+      "rising": false,
+      "change_today": null,
+      "next_change": {
+        "phase": "first_quarter",
+        "name": "Erstes Viertel",
+        "date": "2026-05-23",
+        "at": "2026-05-23T11:11:29.459Z"
+      },
+      "upcoming": [
+        {
+          "phase": "first_quarter",
+          "name": "Erstes Viertel",
+          "date": "2026-05-23",
+          "at": "2026-05-23T11:11:29.459Z"
+        },
+        {
+          "phase": "full_moon",
+          "name": "Vollmond",
+          "date": "2026-05-31",
+          "at": "2026-05-31T08:45:48.291Z"
+        },
+        {
+          "phase": "last_quarter",
+          "name": "Letztes Viertel",
+          "date": "2026-06-08",
+          "at": "2026-06-08T10:00:59.929Z"
+        },
+        {
+          "phase": "new_moon",
+          "name": "Schwarzmond",
+          "date": "2026-06-15",
+          "at": "2026-06-15T02:54:39.007Z"
+        }
+      ],
+      "path_change_today": null,
+      "next_path_change": {
+        "turn": "lowest",
+        "name": "Tiefster Mondstand, ab jetzt steigt der Mond",
+        "date": "2026-06-01",
+        "at": "2026-06-01T16:47:46.162Z"
+      }
+    },
+    "daylight": {
+      "sunrise": "05:22",
+      "sunset": "20:35",
+      "day_length_min": 913,
+      "change_vs_yesterday_min": 2
+    },
+    "garden": {
+      "tasks": [
+        {
+          "id": "earlySummer-1",
+          "title": "Mulchen, damit der Boden feucht und belebt bleibt",
+          "speech": "Mulchen, damit der Boden feucht und belebt bleibt."
+        },
+        {
+          "id": "earlySummer-2",
+          "title": "Wildblumen blühen lassen, Wiese nur abschnittsweise mähen",
+          "speech": "Wildblumen blühen lassen, Wiese nur abschnittsweise mähen."
+        },
+        {
+          "id": "earlySummer-3",
+          "title": "Nützlinge beobachten, Schädlinge meist gewähren lassen",
+          "speech": "Nützlinge beobachten, Schädlinge meist gewähren lassen."
+        }
+      ],
+      "moon": {
+        "waxing": true,
+        "rising": false,
+        "rhythm": {
+          "phase": "zunehmend",
+          "path": "absteigend (nidsigend)",
+          "text": "Der Mond nimmt zu und sinkt"
+        },
+        "tips": [
+          {
+            "id": "plant-out",
+            "text": "Jungpflanzen von Blatt- und Fruchtgemüse auspflanzen und umsetzen"
+          }
+        ],
+        "note": "Alte Gartenweisheit, keine Wissenschaft: Boden und Wetter gehen vor.",
+        "speech": "Der Mond nimmt zu und sinkt: nach alter Gartenregel gut zum Auspflanzen von Jungpflanzen."
+      }
+    },
+    "image": null,
+    "summary": {
+      "speech": "Mittwoch, 20. Mai. Noch 32 Tage bis Litha. In der Natur ist Frühsommer: Schwarzer Holunder blüht. Der Mond: Zunehmende Sichel, zu 18 Prozent beleuchtet. Die Sonne geht um 5 Uhr 22 auf und um 20 Uhr 35 unter. Die Tage werden um 2 Minuten länger. Gartentipp: Mulchen, damit der Boden feucht und belebt bleibt. Der Mond nimmt zu und sinkt: nach alter Gartenregel gut zum Auspflanzen von Jungpflanzen."
+    }
+  },
+  "meta": {
+    "api_version": "v1",
+    "generated_at": "2026-10-14T05:00:00.000Z"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "accountLinkingRequest": {
+    "type": "AUTH_CODE",
+    "authorizationUrl": "https://naturgarten.bio/oauth/authorize",
+    "accessTokenUrl": "https://naturgarten.bio/oauth/token",
+    "clientId": "<OAUTH_ALEXA_CLIENT_ID>",
+    "clientSecret": "<OAUTH_ALEXA_CLIENT_SECRET>",
+    "accessTokenScheme": "HTTP_BASIC",
+    "scopes": ["jahresrad:read"],
+    "domains": ["naturgarten.bio"],
+    "defaultTokenExpirationInSeconds": 3600,
+    "skipOnEnablement": false
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "data": {
+    "date": "2026-10-14",
+    "weekday": "Mittwoch",
+    "timezone": "Europe/Vienna",
+    "location": {
+      "type": "default",
+      "label": "Klagenfurt",
+      "lat": 46.6,
+      "lon": 14.3
+    },
+    "season": {
+      "id": "fullAutumn",
+      "name": "Vollherbst",
+      "since": "2026-09-08",
+      "indicators": [
+        "Eicheln reif",
+        "Rosskastanien reif"
+      ],
+      "source": "hopkins",
+      "next": {
+        "id": "lateAutumn",
+        "name": "Spätherbst",
+        "date": "2026-10-28"
+      }
+    },
+    "festival": {
+      "today": null,
+      "eve": null,
+      "next": {
+        "id": "samhain",
+        "name": "Samhain",
+        "date": "2026-11-09",
+        "rule": "11. Schwarzmond nach der Wintersonnenwende",
+        "short": "Das Fest der Ahnen und des Übergangs",
+        "epithet": "Totenfest",
+        "customs": "Die Ähre ist abgestorben, das Samenkorn fällt auf die Erde und schläft.\nDer neue Zyklus beginnt. Er beginnt mit dem Sterben, denn nur durch Loslassen kann Neues entstehen.",
+        "impulses": [
+          "Was brauche ich nicht mehr und kann es jetzt loslassen?",
+          "Was will in mir sterben um Platz für Neues zu schaffen?"
+        ],
+        "days_until": 26
+      }
+    },
+    "period": null,
+    "moon": {
+      "phase": "waxing_crescent",
+      "name": "Zunehmende Sichel",
+      "illumination": 0.14,
+      "phase_angle": 43.5,
+      "waxing": true,
+      "rising": false,
+      "change_today": null,
+      "next_change": {
+        "phase": "first_quarter",
+        "name": "Erstes Viertel",
+        "date": "2026-10-18",
+        "at": "2026-10-18T16:13:19.496Z"
+      },
+      "upcoming": [
+        {
+          "phase": "first_quarter",
+          "name": "Erstes Viertel",
+          "date": "2026-10-18",
+          "at": "2026-10-18T16:13:19.496Z"
+        },
+        {
+          "phase": "full_moon",
+          "name": "Vollmond",
+          "date": "2026-10-26",
+          "at": "2026-10-26T04:12:15.538Z"
+        },
+        {
+          "phase": "last_quarter",
+          "name": "Letztes Viertel",
+          "date": "2026-11-01",
+          "at": "2026-11-01T20:28:58.794Z"
+        },
+        {
+          "phase": "new_moon",
+          "name": "Schwarzmond",
+          "date": "2026-11-09",
+          "at": "2026-11-09T07:02:42.392Z"
+        }
+      ],
+      "path_change_today": null,
+      "next_path_change": {
+        "turn": "lowest",
+        "name": "Tiefster Mondstand, ab jetzt steigt der Mond",
+        "date": "2026-10-16",
+        "at": "2026-10-16T02:37:43.267Z"
+      }
+    },
+    "daylight": {
+      "sunrise": "07:19",
+      "sunset": "18:18",
+      "day_length_min": 659,
+      "change_vs_yesterday_min": -4
+    },
+    "garden": {
+      "tasks": [
+        {
+          "id": "fullAutumn-1",
+          "title": "Gehölze und Stauden pflanzen, der Boden ist noch warm",
+          "speech": "Gehölze und Stauden pflanzen, der Boden ist noch warm."
+        },
+        {
+          "id": "fullAutumn-2",
+          "title": "Zwiebeln der Frühblüher setzen",
+          "speech": "Zwiebeln der Frühblüher setzen."
+        },
+        {
+          "id": "fullAutumn-3",
+          "title": "Mulchschicht erneuern",
+          "speech": "Mulchschicht erneuern."
+        }
+      ],
+      "moon": {
+        "waxing": true,
+        "rising": false,
+        "rhythm": {
+          "phase": "zunehmend",
+          "path": "absteigend (nidsigend)",
+          "text": "Der Mond nimmt zu und sinkt"
+        },
+        "tips": [],
+        "note": "Alte Gartenweisheit, keine Wissenschaft: Boden und Wetter gehen vor.",
+        "speech": "Der Mond nimmt zu und sinkt."
+      }
+    },
+    "image": {
+      "url": "https://naturgarten.bio/jahresrad/bild/v/2026-10-14/46.5_14.5/1920x1080.png",
+      "width": 1920,
+      "height": 1080,
+      "generated_at": "2026-10-14T00:00:00.000Z",
+      "timezone": "Europe/Vienna",
+      "variants": [
+        {
+          "url": "https://naturgarten.bio/jahresrad/bild/v/2026-10-14/46.5_14.5/1920x1080.png",
+          "width": 1920,
+          "height": 1080
+        },
+        {
+          "url": "https://naturgarten.bio/jahresrad/bild/v/2026-10-14/46.5_14.5/1200x1200.png",
+          "width": 1200,
+          "height": 1200
+        },
+        {
+          "url": "https://naturgarten.bio/jahresrad/bild/v/2026-10-14/46.5_14.5/1080x1920.png",
+          "width": 1080,
+          "height": 1920
+        },
+        {
+          "url": "https://naturgarten.bio/jahresrad/bild/v/2026-10-14/46.5_14.5/rad-1080x1080.png",
+          "width": 1080,
+          "height": 1080
+        },
+        {
+          "url": "https://naturgarten.bio/jahresrad/bild/v/2026-10-14/46.5_14.5/rad-600x600.png",
+          "width": 600,
+          "height": 600
+        }
+      ]
+    },
+    "summary": {
+      "speech": "Heute ist Mittwoch, 14. Oktober. Noch 26 Tage bis Samhain. In der Natur ist Vollherbst: Eicheln reif. Der Mond: Zunehmende Sichel, zu 14 Prozent beleuchtet. Die Sonne geht um 7 Uhr 19 auf und um 18 Uhr 18 unter. Die Tage werden um 4 Minuten kürzer. Gartentipp: Gehölze und Stauden pflanzen, der Boden ist noch warm."
+    }
+  },
+  "meta": {
+    "api_version": "v1",
+    "generated_at": "2026-10-14T05:00:00.000Z"
+  }
+}

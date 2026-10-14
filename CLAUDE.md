@@ -9,8 +9,32 @@ German-language Alexa skill (`de-DE`; DE, AT, CH) that reads the naturgarten.bio
 and answers by voice, with APL screens on Echo Show. Usable only by approved Gefährten via
 Account Linking (OAuth 2.0, Authorization Code Grant, scope `jahresrad:read`).
 
-Stack (planned): Node 22 · TypeScript (strict) · ASK SDK v2 (`ask-sdk-core`, DynamoDB
-persistence adapter) · Alexa-hosted skill, region EU (Ireland) · Vitest · ASK CLI.
+Stack: Node 22 · TypeScript 7 (strict) · ASK SDK v2 (`ask-sdk-core`) · esbuild bundle
+(`lambda/index.js`, target node16, not committed) · Alexa-hosted skill, region EU (Ireland) ·
+Vitest · `apl-suggester` for APL schema checks · ASK CLI for deploys.
+
+## Commands
+
+```bash
+npm run verify          # typecheck + interaction model check + tests + bundle — run before every push
+npm test                # watch mode
+npm run stage:hosted -- <hosted skill checkout>   # copy a build into the Alexa-hosted repo
+```
+
+Layout: `lambda/src/api` (client, cache, errors, types), `answers/` (one module per topic),
+`handlers/` (intents, built-ins, touch, events, errors), `apl/` (ui blocks, screens),
+`speech/` (formatting, fixed texts), `respond.ts` (session and screen policy), `context.ts`
+(token, time zone, viewport, test seams in `deps`). Fixtures in `lambda/test/fixtures` are
+generated from the main repo's `day-info.mjs` (`scripts/generate-fixtures.mjs`); regenerate
+them when the API changes instead of editing them by hand.
+
+Deliberate choices — keep them unless the reason goes away:
+- HTTP via `node:https`, not `fetch`: the hosted Lambda's Node version is not guaranteed.
+- Own DynamoDB adapter on AWS SDK v3: the official adapter still pulls in aws-sdk v2.
+- Settings in `lambda/src/config.ts`, not env vars: Alexa-hosted skills cannot set Lambda env
+  vars. Nothing secret goes there; the OAuth client secret lives only in the Alexa console.
+- Routines use the one-shot phrase („Alexa, frag Jahresrad, was es heute gibt“): there is no
+  reliable marker for a routine launch, and one-shots end the session anyway.
 
 ## Source of truth: the API
 
@@ -59,9 +83,12 @@ persistence adapter) · Alexa-hosted skill, region EU (Ireland) · Vitest · ASK
 
 Light naturgarten.bio look: background `#FAFAFA`, white cards with `#E6E1D8` borders, text
 `#2B2B2B`, muted `#6B6560`, brown `#5B4A3A`, leaf green `#4D7700`, garden strip `#EEF3E2`,
-festival card `#F6EFE3`. Headings Cormorant Garamond, body Open Sans. Screens: main (wheel plus
-4 cards and garden tip), festival detail, moon, garden tasks, help, error. Viewports: Echo Show 5
-(960×480), 8/10 (1280×800), 15/21 landscape (1920×1080) and portrait (1080×1920).
+festival card `#F6EFE3` (tokens in `lambda/src/apl/ui.ts`). APL cannot load web fonts:
+Bookerly stands in for Cormorant Garamond, Amazon Ember Display for Open Sans. Screens: main
+(wheel plus 4 cards and garden tip), festival detail, moon, garden tasks, help, error.
+Viewports: Echo Show 5 (960×480, `small`), 8/10 and 15/21 (`landscape`, sizes in vh) and
+Show 15 upright (`portrait`, sizes in vw). Every new screen or component must pass the APL
+schema test (`lambda/test/apl.test.ts`) on all three.
 
 ## Commits
 
