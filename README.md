@@ -8,9 +8,9 @@ the moon, and fitting garden tasks. On Echo Show devices it shows the wheel with
 The skill is public, but usable only by **Gefährten**: approved members of naturgarten.bio, who
 link their account through Alexa Account Linking (OAuth 2.0).
 
-> **Status:** version 1 runs on the development stage of the Alexa-hosted skill, with Account
-> Linking; tested in the simulator and on a phone. Not yet tested on Echo devices, not yet
-> submitted for certification. See [Before publishing](#before-publishing).
+> **Status:** version 1.0 passed certification on 15.10.2026 and is live in the Alexa skill store
+> for Germany, Austria and Switzerland. Changes reach users only through a new certification
+> (see [Every release of the skill](#every-release-of-the-skill)).
 
 ## What it can do
 
@@ -134,6 +134,17 @@ warns that the credentials must be added again before submitting.
 `ask deploy` does not work here: for hosted skills ASK CLI 2.30 only prints „use git push“.
 `npm run stage:hosted -- <folder>` still exists to stage without deploying.
 
+`deploy:hosted` only updates the **development** stage. To bring a release to users:
+
+1. Test it on the development stage (simulator, `/screen-check` for screen changes).
+2. Console → *Certification* → *Validation*; fix what it reports.
+3. Check that the testing instructions in *Distribution → Privacy & Compliance* still hold the
+   reviewers' credentials, then *Submission* → submit. Publishing is set to „Certify and publish
+   now“: the release goes live on its own once approved. Amazon emails the result.
+
+While a submission is in review, the development stage is locked: deploy again only after the
+result. Small fixes are worth bundling into one submission.
+
 Right after a deploy or a change to Account Linking, the simulator can answer „This utterance did
 not resolve to any intent“ for a few minutes without calling the skill; try again before debugging.
 
@@ -155,7 +166,7 @@ not resolve to any intent“ for a few minutes without calling the skill; try ag
   and a screenless Echo.
 - Logs: console → *Code* → *CloudWatch Logs*. Lines are JSON (`event`, request type, errors).
 
-## Before publishing
+## Before publishing (done for 1.0)
 
 The full step-by-step list with checkboxes: [docs/NEXT-STEPS.md](docs/NEXT-STEPS.md).
 
@@ -165,8 +176,9 @@ The full step-by-step list with checkboxes: [docs/NEXT-STEPS.md](docs/NEXT-STEPS
 - [x] The „Amazon Alexa“ section on `/privacy` is live.
 - [x] A test Gefährten account for Amazon's reviewers (separate account, approved; its password
       only in the certification form).
-- [ ] Screens in the console simulator (*Device Display*, all Echo Show sizes) and voice-only in the
-      Alexa app; no Echo devices at hand, Amazon tests on devices during certification.
+- [x] Screens in the console simulator on all Echo Show sizes (`/screen-check`); no Echo devices at
+      hand, Amazon tested on devices during certification.
+- [x] Certified on 15.10.2026; live in DE, AT, CH.
 
 ## License
 
