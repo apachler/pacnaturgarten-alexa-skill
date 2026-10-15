@@ -1,7 +1,10 @@
-# Next steps to publish the skill
+# Publishing the skill
 
-Status on 14.10.2026. Work from top to bottom; tick boxes as you go. Commands and background
-are in the [README](../README.md#deploying-alexa-hosted).
+**Version 1.0 is live** (certified 15.10.2026; DE, AT, CH). This list records how it got there;
+open boxes were skipped or remain optional. For later releases see the README
+([Every release of the skill](../README.md#every-release-of-the-skill)); new work is under
+[Later](#later-version-11). Commands and background are in the
+[README](../README.md#deploying-alexa-hosted).
 
 ## 1. Merge what is ready — done
 
@@ -41,12 +44,13 @@ npm run deploy:hosted -- ../jahresrad-hosted
 
 - [x] Simulator (CLI): all README examples, the three example phrases, open/help/stop/cancel/no,
       unrelated requests twice, „welches Fest“ follow-up, one-shots. Amazon validation: passed.
-- [ ] Console → *Test* → „Development“ → tick **Device Display**: check the screens for Echo Show 5,
-      8/10, 15/21 and Show 15 upright; tap the cards (moon, festival, garden tip) and help chips.
+- [x] Console → *Test* → „Development“ → tick **Device Display**: check the screens for Echo Show 5,
+      8/10, 15/21 and Show 15 upright; tap the cards (moon, festival, garden tip) and help chips
+      (`/screen-check`, #8–#11).
 - [ ] Android Alexa app (speaks only, like a screenless Echo): the same questions by voice; every
       question must work without a screen.
 - [ ] Real Echo devices: none available; Amazon tests on devices during certification.
-- [ ] „Erzähl mir vom Mond“, „erzähl mir von der Sonne“, „ja“ after „Gartenarbeiten der Woche“.
+- [x] „Erzähl mir vom Mond“, „erzähl mir von der Sonne“, „ja“ after „Gartenarbeiten der Woche“.
 - [ ] Error cases: unlink the account in the profile („Verbundene Apps“) → the skill must answer
       with the linking hint and a card in the Alexa app.
 - [ ] Routine: Alexa app → Routines → daily 07:00 → action *Custom*: „frag Jahresrad, was es heute
@@ -66,13 +70,15 @@ npm run deploy:hosted -- ../jahresrad-hosted
 
 ## 7. Submit
 
-- [ ] Console → *Distribution*: check name, descriptions, example phrases, icons, privacy and
+- [x] Console → *Distribution*: check name, descriptions, example phrases, icons, privacy and
       terms URLs (all come from `skill-package/skill.json`).
-- [ ] *Privacy & Compliance*: no purchases, personal info yes (Account Linking), not for children,
+- [x] *Privacy & Compliance*: no purchases, personal info yes (Account Linking), not for children,
       no ads, export compliant.
-- [ ] *Certification* → *Validation*, fix what it reports, then submit with the testing
+- [x] *Certification* → *Validation*, fix what it reports, then submit with the testing
       instructions and the test account.
-- [ ] After approval: publish; availability DE, AT, CH.
+- [x] Submitted 14.10.2026 („Certify and publish now“), approved and published 15.10.2026; DE, AT, CH.
+- [ ] Smoke test of the live skill: enable it from the store, link the account, „Alexa, öffne
+      Jahresrad“.
 
 ## Later (version 1.1)
 
