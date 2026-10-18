@@ -3,6 +3,7 @@
  * (lambda/index.js, handler `index.handler`).
  */
 import { DefaultApiClient, getIntentName, getRequestType, SkillBuilders, type PersistenceAdapter, type RequestInterceptor } from 'ask-sdk-core';
+import { config } from './config';
 import { errorHandler, requestHandlers } from './handlers';
 import { log } from './log';
 import { defaultAdapter } from './persistence';
@@ -17,6 +18,7 @@ const logRequest: RequestInterceptor = {
 
 export function createSkill(adapter: PersistenceAdapter = defaultAdapter()) {
   return SkillBuilders.custom()
+    .withSkillId(config.skillId)
     .addRequestHandlers(...requestHandlers)
     .addErrorHandlers(errorHandler)
     .addRequestInterceptors(logRequest)

@@ -7,17 +7,24 @@ export interface HttpResponse {
   body: string;
 }
 
-export type Transport = (url: string, headers: Record<string, string>, timeoutMs: number) => Promise<HttpResponse>;
+export type Transport = (url: string, headers: Record<string, string>, timeoutMs: number, maxBodyBytes?: number) => Promise<HttpResponse>;
 
 /**
  * GET over node:https with a hard deadline for the whole exchange. node:https rather than
- * fetch, so the bundle runs on whichever Node runtime the Alexa-hosted Lambda has.
+ * fetch, so the bundle runs on whichever Node runtime the Alexa-hosted Lambda has. A body larger
+ * than `maxBodyBytes` aborts the request: an answer that size is not one the skill can use, and
+ * reading it would eat the Lambda's memory and time.
  */
-export const httpsGet: Transport = (url, headers, timeoutMs) =>
+export const httpsGet: Transport = (url, headers, timeoutMs, maxBodyBytes = Infinity) =>
   new Promise((resolve, reject) => {
     const req = request(url, { method: 'GET', headers }, (res) => {
       const chunks: Buffer[] = [];
-      res.on('data', (chunk: Buffer) => chunks.push(chunk));
+      let size = 0;
+      res.on('data', (chunk: Buffer) => {
+        size += chunk.length;
+        if (size > maxBodyBytes) req.destroy(new Error('response too large'));
+        else chunks.push(chunk);
+      });
       res.on('end', () => {
         clearTimeout(timer);
         const out: Record<string, string> = {};

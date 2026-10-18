@@ -33,7 +33,8 @@ export interface Screen {
 
 /** The wheel-only image for the device: 600 px on Echo Show 5, 1080 px elsewhere. */
 export function pickWheel(image: Image | null | undefined, kind: ViewportKind): string | undefined {
-  const variants = image?.variants ?? [];
+  // APL loads images only over https; anything else would leave an empty frame.
+  const variants = (image?.variants ?? []).filter((v) => typeof v.url === 'string' && v.url.startsWith('https://'));
   const want = kind === 'small' ? 'rad-600x600' : 'rad-1080x1080';
   const exact = variants.find((v) => v.url.includes(`/${want}.`));
   const anyWheel = variants.find((v) => v.url.includes('/rad-'));

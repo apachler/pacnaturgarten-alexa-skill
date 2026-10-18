@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import type { RequestEnvelope, ResponseEnvelope } from 'ask-sdk-model';
 import { ResponseCache } from '../src/api/cache';
 import type { HttpResponse } from '../src/api/transport';
+import { config } from '../src/config';
 import { deps } from '../src/context';
 import { createSkill } from '../src/index';
 import { MemoryAdapter } from '../src/persistence';
@@ -72,12 +73,13 @@ export interface EnvOptions {
   viewport?: { w: number; h: number };
   newSession?: boolean;
   attributes?: Record<string, unknown>;
+  skillId?: string;
 }
 
 export function envelope(request: Record<string, unknown>, o: EnvOptions = {}): RequestEnvelope {
   const token = o.token === null ? undefined : (o.token ?? TOKEN);
   const user = { userId: USER, ...(token ? { accessToken: token } : {}) };
-  const application = { applicationId: 'amzn1.ask.skill.test' };
+  const application = { applicationId: o.skillId ?? config.skillId };
   const vp = o.viewport ?? { w: 1280, h: 800 };
   return {
     version: '1.0',

@@ -59,12 +59,15 @@ async function settingsTimeZone(hi: HandlerInput): Promise<string> {
   if (!deviceId) return config.defaultTimeZone;
   const known = zones.get(deviceId);
   if (known) return known;
+  let timer: ReturnType<typeof setTimeout> | undefined;
   try {
     const client = hi.serviceClientFactory?.getUpsServiceClient();
     if (!client) return config.defaultTimeZone;
     const tz = await Promise.race([
       client.getSystemTimeZone(deviceId),
-      new Promise<never>((_, reject) => setTimeout(() => reject(new Error('timeout')), config.timeZoneLookupMs)),
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => reject(new Error('timeout')), config.timeZoneLookupMs);
+      }),
     ]);
     if (typeof tz === 'string' && isTimeZone(tz)) {
       zones.set(deviceId, tz);
@@ -72,6 +75,8 @@ async function settingsTimeZone(hi: HandlerInput): Promise<string> {
     }
   } catch (err) {
     log('timezone_lookup_failed', { reason: err instanceof Error ? err.message : 'unknown' });
+  } finally {
+    clearTimeout(timer);
   }
   return config.defaultTimeZone;
 }

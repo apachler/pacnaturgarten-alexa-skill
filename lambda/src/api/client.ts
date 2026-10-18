@@ -85,7 +85,7 @@ export class JahresradApi {
     const started = this.o.now();
     let res;
     try {
-      res = await this.o.transport(url, headers, this.o.timeoutMs ?? config.apiTimeoutMs);
+      res = await this.o.transport(url, headers, this.o.timeoutMs ?? config.apiTimeoutMs, config.apiMaxBodyBytes);
     } catch (err) {
       log('api_unreachable', { path, reason: err instanceof Error ? err.message : 'unknown', ms: this.o.now() - started });
       return this.fallback<T>(usable, path, new ApiError('unavailable'));

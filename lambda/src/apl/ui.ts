@@ -83,7 +83,10 @@ export function text(
 
 /** APL Text treats `${…}` as data binding and `<…>` as markup; API text must stay literal. */
 export const escapeApl = (value: string): string =>
-  value.replace(/\$\{/g, '$ {').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  noBinding(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+/** APL evaluates `${…}` in every string, not only in Text: labels and event arguments need it broken too. */
+export const noBinding = (value: string): string => value.replace(/\$\{/g, '$ {');
 
 export function row(items: (Component | null | undefined | false)[], gap: string, extra: Component = {}): Component {
   return { type: 'Container', direction: 'row', items: spaced(items, gap), ...extra };
@@ -125,19 +128,19 @@ export function box(
         borderRadius: dim(s, s.radius),
       },
       item,
-      opts.tap ? { type: 'TouchWrapper', ...fill, accessibilityLabel: opts.tap.label, onPress: [send(opts.tap.args)] } : null,
+      opts.tap ? { type: 'TouchWrapper', ...fill, accessibilityLabel: noBinding(opts.tap.label), onPress: [send(opts.tap.args)] } : null,
     ].filter(Boolean),
     ...opts.extra,
   };
 }
 
-const send = (args: string[]) => ({ type: 'SendEvent', arguments: args });
+const send = (args: string[]) => ({ type: 'SendEvent', arguments: args.map(noBinding) });
 
 /** Tappable: sends a UserEvent the skill answers like the matching intent. For boxes use `box(…, { tap })`. */
 export function tap(item: Component, args: string[], label: string, extra: Component = {}): Component {
   return {
     type: 'TouchWrapper',
-    accessibilityLabel: label,
+    accessibilityLabel: noBinding(label),
     onPress: [send(args)],
     item,
     ...extra,

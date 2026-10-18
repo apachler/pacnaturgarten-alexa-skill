@@ -40,6 +40,10 @@ describe('AMAZON.DATE', () => {
   it('refuses what it cannot use', () => {
     expect(resolveDate(undefined, today)).toEqual({ ok: false, reason: 'missing' });
     expect(resolveDate('PRESENT_REF', today)).toEqual({ ok: false, reason: 'unclear' });
+    expect(resolveDate('2026-02-31', today)).toEqual({ ok: false, reason: 'unclear' });
+    expect(resolveDate('2026-13-01', today)).toEqual({ ok: false, reason: 'unclear' });
+    expect(resolveDate('2026-W00', today)).toEqual({ ok: false, reason: 'unclear' });
+    expect(resolveDate('2026-W60', today)).toEqual({ ok: false, reason: 'unclear' });
     expect(resolveDate('2024-05-01', today)).toEqual({ ok: false, reason: 'range' });
     expect(resolveDate('2028-01-01', today)).toEqual({ ok: false, reason: 'range' });
   });
