@@ -6,10 +6,17 @@
 const env = process.env;
 
 export const config = {
+  /**
+   * Requests for any other skill are refused before a handler runs. The Lambda trigger already
+   * restricts the caller; this holds even if the function is ever wired to another trigger.
+   */
+  skillId: env.JAHRESRAD_SKILL_ID ?? 'amzn1.ask.skill.9c0c794a-a5a0-4b9e-b017-8f965bce13b6',
   /** Jahresrad API, see docs/API.md in apachler/pacnaturgarten. */
   apiBaseUrl: env.JAHRESRAD_API_BASE_URL ?? 'https://naturgarten.bio/api/v1/jahresrad',
   /** Per request; Alexa allows about 8 s for the whole response. */
   apiTimeoutMs: Number(env.JAHRESRAD_API_TIMEOUT_MS ?? 3000),
+  /** Largest response body read; the biggest answer (a week) is a few dozen KB. */
+  apiMaxBodyBytes: 1024 * 1024,
   /** Cached answers are asked again (If-None-Match) after this long, at the latest at local midnight. */
   revalidateAfterMs: 60 * 60 * 1000,
   /** Time zone when the Alexa Settings API does not answer; also the API's own default. */

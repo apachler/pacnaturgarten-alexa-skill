@@ -69,13 +69,19 @@ export function resolveDate(value: string | undefined, todayIso: string): DateRe
   let date: string | undefined;
   let m: RegExpExecArray | null;
   if ((m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v))) date = `${m[1]}-${m[2]}-${m[3]}`;
-  else if ((m = /^(\d{4})-W(\d{2})(?:-WE)?$/.exec(v))) date = isoWeekMonday(Number(m[1]), Number(m[2]));
+  else if ((m = /^(\d{4})-W(\d{2})(?:-WE)?$/.exec(v)) && Number(m[2]) >= 1 && Number(m[2]) <= 53) date = isoWeekMonday(Number(m[1]), Number(m[2]));
   else if ((m = /^(\d{4})-(\d{2})$/.exec(v))) date = `${m[1]}-${m[2]}-01`;
   else if ((m = /^(\d{4})$/.exec(v))) date = `${m[1]}-01-01`;
-  if (!date || Number.isNaN(Date.parse(`${date}T00:00:00Z`))) return { ok: false, reason: 'unclear' };
+  // Date.parse rolls 2026-02-31 over to 3 March instead of refusing it; only a round trip catches that.
+  if (!date || !isCalendarDay(date)) return { ok: false, reason: 'unclear' };
   const y = Number(date.slice(0, 4));
   if (y < year - 1 || y > year + 1) return { ok: false, reason: 'range' };
   return { ok: true, date };
+}
+
+function isCalendarDay(iso: string): boolean {
+  const t = Date.parse(`${iso}T00:00:00Z`);
+  return !Number.isNaN(t) && new Date(t).toISOString().slice(0, 10) === iso;
 }
 
 function isoWeekMonday(year: number, week: number): string {

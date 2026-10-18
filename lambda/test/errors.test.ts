@@ -40,6 +40,13 @@ describe('account and access', () => {
   });
 });
 
+describe('skill id', () => {
+  it('refuses a request for another skill before any handler or API call', async () => {
+    await expect(t.invoke(envelope(launch(), { skillId: 'amzn1.ask.skill.someone-else' }))).rejects.toThrow(/skill id/i);
+    expect(t.api.calls).toHaveLength(0);
+  });
+});
+
 describe('outages', () => {
   it('5xx without a cache: friendly message and the error screen', async () => {
     t.api.problem('/moon', 503, 'unavailable');
